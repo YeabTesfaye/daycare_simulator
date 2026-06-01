@@ -1,0 +1,92 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma/client"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id          String       @id @default(cuid())
+  email       String       @unique
+  password    String
+  name        String?
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  simulations Simulation[]
+}
+
+model Simulation {
+  id             String          @id @default(cuid())
+  userId         String
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessName   String
+  operatingHours Float           @default(10)
+  operatingDays  Int             @default(250)
+  status         SimStatus       @default(DRAFT)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  revenueSources RevenueSource[]
+  expenseItems   ExpenseItem[]
+  classrooms     Classroom[]
+  businessGoals  BusinessGoal[]
+  insight        Insight?
+}
+
+enum SimStatus {
+  DRAFT
+  COMPLETED
+}
+
+model RevenueSource {
+  id           String     @id @default(cuid())
+  simulationId String
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  name         String
+  amount       Float
+  tag          String?
+}
+
+model ExpenseItem {
+  id           String     @id @default(cuid())
+  simulationId String
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  name         String
+  amount       Float
+  tag          String?
+}
+
+model Classroom {
+  id           String     @id @default(cuid())
+  simulationId String
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  name         String
+  capacity     Int
+  staffRatio   Float
+  enrolled     Int
+}
+
+model BusinessGoal {
+  id           String     @id @default(cuid())
+  simulationId String
+  simulation   Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  name         String
+  targetValue  Float
+  unit         String     @default("%")
+}
+
+model Insight {
+  id                  String     @id @default(cuid())
+  simulationId        String     @unique
+  simulation          Simulation @relation(fields: [simulationId], references: [id], onDelete: Cascade)
+  netMonthlyIncome    Float
+  breakEvenEnrollment Int
+  capacityUtilization Float
+  largestExpenseName  String
+  largestExpensePct   Float
+  executiveSummary    Json
+  recommendations     Json
+  actionPlan          Json
+  createdAt           DateTime   @default(now())
+}
