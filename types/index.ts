@@ -62,3 +62,29 @@ export interface InsightData {
     timeline: string;
   }[];
 }
+
+
+export interface TrendDataPoint {
+  month: string;
+  revenue: number;
+  expenses: number;
+  profit: number;
+}
+
+export interface ExpenseDataPoint {
+  name: string;
+  value: number;
+  pct: number;
+  color: string;
+}
+
+export interface MonthlyProfitDataPoint {
+  month: string;
+  profit: number;
+}
+
+export interface ProfitMetrics {
+  profitPerStudent: number;
+  capacityUtilization: number;
+  monthlyNetProfit: number;
+}

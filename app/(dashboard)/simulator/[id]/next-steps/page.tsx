@@ -1,23 +1,35 @@
+// app/(dashboard)/simulator/[id]/next-steps/page.tsx
 import { redirect } from "next/navigation";
 import { getSimulationAction } from "@/actions/simulation";
 import { WizardHeader } from "@/components/simulator/wizard-header";
-import { ActionPlan } from "@/components/simulator/step-next-steps/action-plan";
+import type { InsightData } from "@/types";
+import { NextStepsClient } from "./next-steps-client";
 
 export default async function NextStepsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const simulation = await getSimulationAction(params.id);
-  if (!simulation || !simulation.insight) redirect("/overview");
+  const { id } = await params;
+  const simulation = await getSimulationAction(id);
+  if (!simulation || !simulation.insight) {
+    redirect(`/simulator/${id}/inputs`);
+  }
+
+  const actionPlan     = simulation.insight.actionPlan     as InsightData["actionPlan"];
+  const recommendations = simulation.insight.recommendations as InsightData["recommendations"];
+  const executiveSummary = simulation.insight.executiveSummary as InsightData["executiveSummary"];
+  const netMonthlyIncome = simulation.insight.netMonthlyIncome;
 
   return (
     <div className="p-6 max-w-5xl mx-auto">
       <WizardHeader currentStep={3} simulationName={simulation.businessName} />
-      <ActionPlan
+      <NextStepsClient
         simulationId={simulation.id}
-        actionPlan={simulation.insight.actionPlan as Parameters<typeof ActionPlan>[0]["actionPlan"]}
-        recommendations={simulation.insight.recommendations as Parameters<typeof ActionPlan>[0]["recommendations"]}
+        actionPlan={actionPlan}
+        recommendations={recommendations}
+        executiveSummaryRecs={executiveSummary.recommendations}
+        netMonthlyIncome={netMonthlyIncome}
       />
     </div>
   );

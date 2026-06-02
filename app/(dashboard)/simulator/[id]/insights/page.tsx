@@ -6,11 +6,12 @@ import { InsightsDashboard } from "@/components/simulator/step-insights/insights
 export default async function InsightsPage({
   params,
 }: {
-  params: { id: string };
+  params : Promise<{ id: string }>;
 }) {
-  const simulation = await getSimulationAction(params.id);
+  const { id } = await params;
+  const simulation = await getSimulationAction(id);
   if (!simulation) redirect("/overview");
-  if (!simulation.insight) redirect(`/simulator/${params.id}/inputs`);
+  if (!simulation.insight) redirect(`/simulator/${id}/inputs`);
 
   return (
     <div className="p-6 max-w-5xl mx-auto">

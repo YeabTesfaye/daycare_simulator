@@ -1,3 +1,4 @@
+// components/dashboard/sidebar.tsx
 "use client";
 
 import Link from "next/link";
@@ -8,20 +9,24 @@ import {
   BarChart3,
   Settings,
   Baby,
+  Calculator,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const nav = [
-  { href: "/overview", label: "Dashboard", icon: LayoutDashboard },
-  { href: "/simulator", label: "Simulator", icon: FlaskConical },
-  { href: "/reports", label: "Reports", icon: BarChart3 },
-  { href: "/settings", label: "Settings", icon: Settings },
+  { href: "/overview",           label: "Dashboard",          icon: LayoutDashboard },
+  { href: "/simulator",          label: "Simulator",           icon: FlaskConical },
+  { href: "/budget-simulation",  label: "Budget Simulation",   icon: Calculator },
+  { href: "/reports",            label: "Reports",             icon: BarChart3 },
+  { href: "/settings",           label: "Settings",            icon: Settings },
 ];
 
 export function Sidebar() {
   const pathname = usePathname();
+
   return (
-    <aside className="w-60 bg-white border-r border-gray-200 flex flex-col min-h-screen">
+    <aside className="w-60 bg-white border-r border-gray-200 flex flex-col min-h-screen shrink-0">
+      {/* Logo */}
       <div className="p-5 border-b border-gray-100">
         <div className="flex items-center gap-2">
           <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
@@ -33,22 +38,31 @@ export function Sidebar() {
           </div>
         </div>
       </div>
+
+      {/* Nav */}
       <nav className="flex-1 p-4 space-y-1">
-        {nav.map(({ href, label, icon: Icon }) => (
-          <Link
-            key={href}
-            href={href}
-            className={cn(
-              "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
-              pathname.startsWith(href)
-                ? "bg-blue-50 text-blue-600 font-medium"
-                : "text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            )}
-          >
-            <Icon className="h-4 w-4" />
-            {label}
-          </Link>
-        ))}
+        {nav.map(({ href, label, icon: Icon }) => {
+          const active =
+            href === "/simulator"
+              ? pathname.startsWith("/simulator")
+              : pathname.startsWith(href);
+
+          return (
+            <Link
+              key={href}
+              href={href}
+              className={cn(
+                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-colors",
+                active
+                  ? "bg-blue-50 text-blue-600 font-medium"
+                  : "text-gray-600 hover:bg-gray-50 hover:text-gray-900",
+              )}
+            >
+              <Icon className="h-4 w-4 shrink-0" />
+              {label}
+            </Link>
+          );
+        })}
       </nav>
     </aside>
   );

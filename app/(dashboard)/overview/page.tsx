@@ -13,7 +13,6 @@ export default async function OverviewPage() {
     orderBy: { updatedAt: "desc" },
   });
 
-  console.log("Simulations:", simulations);
 
   return (
     <div className="p-8 max-w-5xl mx-auto">
