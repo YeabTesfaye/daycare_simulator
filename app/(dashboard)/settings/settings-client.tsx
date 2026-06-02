@@ -209,7 +209,8 @@ export function SettingsClient({ user }: Props) {
                     id="email"
                     type="email"
                     value={email}
-                    onChange={(e) => setEmail(e.target.value)}
+                    readOnly
+                    disabled
                     placeholder="you@email.com"
                     className="mt-1"
                     required

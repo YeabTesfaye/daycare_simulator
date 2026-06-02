@@ -58,6 +58,7 @@ function fmtFull(v: number) {
 }
 
 /* ─── Custom tooltip for line chart ─────────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function LineTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
@@ -73,6 +74,7 @@ function LineTooltip({ active, payload, label }: any) {
 }
 
 /* ─── Custom tooltip for bar chart ──────────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function BarTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
   return (
@@ -84,6 +86,7 @@ function BarTooltip({ active, payload, label }: any) {
 }
 
 /* ─── Pie label renderer ─────────────────────────────────── */
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 function PieLabel({ cx, cy, midAngle, outerRadius, name, pct, fill }: any) {
   const RADIAN = Math.PI / 180;
   const r  = outerRadius + 30;

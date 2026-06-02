@@ -4,6 +4,7 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { hashPassword, comparePassword, createToken } from "@/lib/auth";
+import { Resend } from "resend"
 
 export async function loginAction(formData: FormData) {
   const email = formData.get("email") as string;
@@ -66,4 +67,10 @@ export async function logoutAction() {
   const cookieStore = await cookies();
   cookieStore.delete("token");
   redirect("/login");
+}
+
+export async function forgotPasswordAction(formData: FormData) {
+  const email = formData.get("email") as string;    
+
+
 }

@@ -136,34 +136,35 @@ export function InputsForm({ simulation }: Props) {
       )}
 
       {/* ── Footer actions ── */}
-      <div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
-        <Button
-          variant="outline"
-          disabled={isBusy}
-          onClick={() => router.push("/overview")}
-        >
-          Back
-        </Button>
+<div className="flex items-center justify-end gap-3 mt-8 pt-6 border-t border-gray-100">
+  <Button
+    variant="outline"
+    disabled={isBusy}
+    onClick={() => router.push("/overview")}
+    className="rounded-lg border-gray-200 text-gray-700 bg-white hover:bg-gray-50 hover:text-gray-900 px-5 transition-colors"
+  >
+    Back
+  </Button>
 
-        <Button
-          variant="outline"
-          onClick={handleSave}
-          disabled={isBusy}
-          className="border-green-500 text-green-600 hover:bg-green-50 disabled:opacity-50"
-        >
-          {isPendingSave && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-          {isPendingSave ? "Saving…" : "Save My Inputs"}
-        </Button>
+  <Button
+    onClick={handleSave}
+    disabled={isBusy}
+    className="bg-[#52c41a] hover:opacity-90 text-white rounded-lg px-5 border-none shadow-none disabled:opacity-50 transition-opacity"
+  >
+    {isPendingSave && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+    {isPendingSave ? "Saving…" : "Save My Inputs"}
+  </Button>
 
-        <Button
-          onClick={handleGenerate}
-          disabled={isBusy}
-          className="bg-blue-500 hover:bg-blue-600 disabled:opacity-50"
-        >
-          {isPendingGenerate && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
-          {isPendingGenerate ? "Generating…" : "Generate Insights"}
-        </Button>
-      </div>
+  <Button
+    onClick={handleGenerate}
+    disabled={isBusy}
+    className="bg-[#1890ff] hover:opacity-90 text-white rounded-lg px-5 border-none shadow-none disabled:opacity-50 transition-opacity"
+  >
+    {isPendingGenerate && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
+    {isPendingGenerate ? "Generating…" : "Generate Insights"}
+  </Button>
+</div>
+
     </div>
   );
 }

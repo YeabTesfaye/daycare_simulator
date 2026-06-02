@@ -8,7 +8,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { LogOut, User } from "lucide-react";
+import { Link, LogOut, User } from "lucide-react";
 
 interface TopNavProps {
   user: { name: string | null; email: string };
@@ -35,9 +35,9 @@ export function TopNav({ user }: TopNavProps) {
           </button>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
-          <DropdownMenuItem className="gap-2">
-            <User className="h-4 w-4" /> Profile
-          </DropdownMenuItem>
+          {/* <DropdownMenuItem className="gap-2">
+            <User className="h-4 w-4" /> <Link href="/profile">Profile</Link>
+          </DropdownMenuItem> */}
           <DropdownMenuItem
             className="gap-2 text-red-600"
             onClick={() => logoutAction()}
