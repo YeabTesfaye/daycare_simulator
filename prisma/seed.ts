@@ -1,9 +1,17 @@
-import { prisma } from "@/lib/prisma";
+import "dotenv/config";
+import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 import bcrypt from "bcryptjs";
 
+const adapter = new PrismaPg({
+  connectionString: process.env.DIRECT_URL!,
+});
+
+const prisma = new PrismaClient({ adapter });
 
 async function main() {
   const password = await bcrypt.hash("password123", 10);
+
   const user = await prisma.user.upsert({
     where: { email: "demo@daycare.com" },
     update: {},
@@ -48,7 +56,11 @@ async function main() {
       },
     },
   });
-  console.log("Seeded:", user.email);
+
+  console.log("✅ Seeded:", user.email);
+  console.log("   Login: demo@daycare.com / password123");
 }
 
-main().catch(console.error).finally(() => prisma.$disconnect());
+main()
+  .catch((e) => { console.error("❌ Seed failed:", e); process.exit(1); })
+  .finally(() => prisma.$disconnect());

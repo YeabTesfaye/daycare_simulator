@@ -1,7 +1,4 @@
-import * as dotenv from "dotenv";
-dotenv.config(); // must be before PrismaClient is created
-
-import { PrismaClient } from "../src/generated/prisma/client";
+import { PrismaClient } from "@/src/generated/prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 
 const globalForPrisma = globalThis as unknown as {
