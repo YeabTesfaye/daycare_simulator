@@ -132,3 +132,24 @@ export async function getSimulationAction(id: string) {
     },
   });
 }
+
+
+export async function deleteSimulation(simulationId: string) {
+  const user = await getSession();
+  if (!user) redirect("/login");
+
+  const simulation = await prisma.simulation.findUnique({
+    where: { id: simulationId },
+    select: { userId: true },
+  });
+
+  if (!simulation || simulation.userId !== user.id) {
+    throw new Error("Not authorized");
+  }
+
+  await prisma.simulation.delete({
+    where: { id: simulationId },
+  });
+
+  revalidatePath("/overview")
+}

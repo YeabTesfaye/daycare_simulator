@@ -27,7 +27,9 @@ export function WizardHeader({ currentStep, simulationName }: WizardHeaderProps)
             Center Operations Simulator
           </h1>
           <p className="text-sm text-gray-500">
-            {currentStep === 1
+            {simulationName ? (
+              <span className="font-medium text-gray-700">{simulationName}</span>
+            ) : currentStep === 1
               ? "Simulate cash flow, budgeting, staffing, and financial events"
               : currentStep === 2
               ? "Simulation Results & Key Performance Indicators"
