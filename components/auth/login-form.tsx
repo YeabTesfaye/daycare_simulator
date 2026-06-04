@@ -195,37 +195,18 @@ export function LoginForm({ mode = "login" }: LoginFormProps) {
 
       {/* Right panel — image dominant, large branding below */}
       <div className="hidden md:flex md:w-[70%] flex-col items-center justify-center bg-white gap-2 py-8">
-        <div className="relative w-140 h-105">
+        <div className="relative w-240 h-205">
           <Image
             src="/images/blocks.png"
             alt="Daycare blocks spelling DAY CARE"
             fill
-            sizes="560px"
+            sizes="full"
             className="object-contain"
             priority
           />
         </div>
 
-        <div className="text-center mt-0">
-          <p
-            className="font-black text-[#2B3FAA] leading-none tracking-tight"
-            style={{
-              fontSize: "clamp(4rem, 7vw, 6.5rem)",
-              fontFamily: "'Georgia', 'Times New Roman', serif",
-              fontWeight: 900,
-              fontStyle: "italic",
-              letterSpacing: "-0.02em",
-            }}
-          >
-            AI insight
-          </p>
-          <p
-            className="tracking-[0.55em] uppercase text-gray-400 mt-2"
-            style={{ fontSize: "0.85rem" }}
-          >
-            SIMULATOR
-          </p>
-        </div>
+   
       </div>
     </div>
   );
