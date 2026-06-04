@@ -213,6 +213,21 @@ exports.Prisma.BudgetScenarioScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.UserPreferencesScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  defaultGrowthRate: 'defaultGrowthRate',
+  defaultGrowthPeriod: 'defaultGrowthPeriod',
+  currency: 'currency',
+  fiscalYearStart: 'fiscalYearStart',
+  notifWelcome: 'notifWelcome',
+  notifReportReady: 'notifReportReady',
+  notifProductUpdates: 'notifProductUpdates',
+  notifWeeklyDigest: 'notifWeeklyDigest',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -257,7 +272,8 @@ exports.Prisma.ModelName = {
   BusinessGoal: 'BusinessGoal',
   Insight: 'Insight',
   PasswordResetToken: 'PasswordResetToken',
-  BudgetScenario: 'BudgetScenario'
+  BudgetScenario: 'BudgetScenario',
+  UserPreferences: 'UserPreferences'
 };
 
 /**

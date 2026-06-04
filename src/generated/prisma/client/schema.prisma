@@ -18,6 +18,8 @@ model User {
   passwordResetTokens PasswordResetToken[]
 
   budgetScenarios BudgetScenario[]
+
+  userPreferences UserPreferences[]
 }
 
 model Simulation {
@@ -127,4 +129,25 @@ enum GrowthPeriod {
   Monthly
   Quarterly
   Annually
+}
+
+model UserPreferences {
+  id     String @id @default(cuid())
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Simulation defaults
+  defaultGrowthRate   Float  @default(5)
+  defaultGrowthPeriod String @default("Annually")
+  currency            String @default("USD")
+  fiscalYearStart     Int    @default(1) // 1 = January
+
+  // Notifications
+  notifWelcome        Boolean @default(true)
+  notifReportReady    Boolean @default(true)
+  notifProductUpdates Boolean @default(false)
+  notifWeeklyDigest   Boolean @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

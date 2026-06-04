@@ -674,7 +674,7 @@ export function BudgetSimulationClient({
                 variant="outline"
                 size="sm"
                 onClick={handleLoadFromSim}
-                className="gap-1.5 text-xs border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300"
+                className="gap-1.5 text-xs border-gray-200 text-gray-200 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300"
                 title={`Load data from "${simDefaults.sourceName}"`}
               >
                 <RefreshCw className="h-3.5 w-3.5" />
@@ -710,7 +710,7 @@ export function BudgetSimulationClient({
               variant="outline"
               size="sm"
               onClick={handleExportPDF}
-              className="gap-1.5 text-xs border-gray-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300"
+              className="gap-1.5 text-xs border-gray-200 text-gray-200 hover:bg-gray-50 hover:text-gray-900 hover:border-gray-300"
             >
               <Download className="h-3.5 w-3.5" />
               Export PDF

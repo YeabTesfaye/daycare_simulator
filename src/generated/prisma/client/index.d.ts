@@ -58,6 +58,11 @@ export type PasswordResetToken = $Result.DefaultSelection<Prisma.$PasswordResetT
  * 
  */
 export type BudgetScenario = $Result.DefaultSelection<Prisma.$BudgetScenarioPayload>
+/**
+ * Model UserPreferences
+ * 
+ */
+export type UserPreferences = $Result.DefaultSelection<Prisma.$UserPreferencesPayload>
 
 /**
  * Enums
@@ -299,6 +304,16 @@ export class PrismaClient<
     * ```
     */
   get budgetScenario(): Prisma.BudgetScenarioDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.userPreferences`: Exposes CRUD operations for the **UserPreferences** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserPreferences
+    * const userPreferences = await prisma.userPreferences.findMany()
+    * ```
+    */
+  get userPreferences(): Prisma.UserPreferencesDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -741,7 +756,8 @@ export namespace Prisma {
     BusinessGoal: 'BusinessGoal',
     Insight: 'Insight',
     PasswordResetToken: 'PasswordResetToken',
-    BudgetScenario: 'BudgetScenario'
+    BudgetScenario: 'BudgetScenario',
+    UserPreferences: 'UserPreferences'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -757,7 +773,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "simulation" | "revenueSource" | "expenseItem" | "classroom" | "businessGoal" | "insight" | "passwordResetToken" | "budgetScenario"
+      modelProps: "user" | "simulation" | "revenueSource" | "expenseItem" | "classroom" | "businessGoal" | "insight" | "passwordResetToken" | "budgetScenario" | "userPreferences"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1427,6 +1443,80 @@ export namespace Prisma {
           }
         }
       }
+      UserPreferences: {
+        payload: Prisma.$UserPreferencesPayload<ExtArgs>
+        fields: Prisma.UserPreferencesFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.UserPreferencesFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.UserPreferencesFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>
+          }
+          findFirst: {
+            args: Prisma.UserPreferencesFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.UserPreferencesFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>
+          }
+          findMany: {
+            args: Prisma.UserPreferencesFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>[]
+          }
+          create: {
+            args: Prisma.UserPreferencesCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>
+          }
+          createMany: {
+            args: Prisma.UserPreferencesCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.UserPreferencesCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>[]
+          }
+          delete: {
+            args: Prisma.UserPreferencesDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>
+          }
+          update: {
+            args: Prisma.UserPreferencesUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>
+          }
+          deleteMany: {
+            args: Prisma.UserPreferencesDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.UserPreferencesUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.UserPreferencesUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>[]
+          }
+          upsert: {
+            args: Prisma.UserPreferencesUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$UserPreferencesPayload>
+          }
+          aggregate: {
+            args: Prisma.UserPreferencesAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateUserPreferences>
+          }
+          groupBy: {
+            args: Prisma.UserPreferencesGroupByArgs<ExtArgs>
+            result: $Utils.Optional<UserPreferencesGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.UserPreferencesCountArgs<ExtArgs>
+            result: $Utils.Optional<UserPreferencesCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1544,6 +1634,7 @@ export namespace Prisma {
     insight?: InsightOmit
     passwordResetToken?: PasswordResetTokenOmit
     budgetScenario?: BudgetScenarioOmit
+    userPreferences?: UserPreferencesOmit
   }
 
   /* Types for Logging */
@@ -1627,12 +1718,14 @@ export namespace Prisma {
     simulations: number
     passwordResetTokens: number
     budgetScenarios: number
+    userPreferences: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     simulations?: boolean | UserCountOutputTypeCountSimulationsArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
     budgetScenarios?: boolean | UserCountOutputTypeCountBudgetScenariosArgs
+    userPreferences?: boolean | UserCountOutputTypeCountUserPreferencesArgs
   }
 
   // Custom InputTypes
@@ -1665,6 +1758,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountBudgetScenariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: BudgetScenarioWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountUserPreferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPreferencesWhereInput
   }
 
 
@@ -1905,6 +2005,7 @@ export namespace Prisma {
     simulations?: boolean | User$simulationsArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     budgetScenarios?: boolean | User$budgetScenariosArgs<ExtArgs>
+    userPreferences?: boolean | User$userPreferencesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1940,6 +2041,7 @@ export namespace Prisma {
     simulations?: boolean | User$simulationsArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
     budgetScenarios?: boolean | User$budgetScenariosArgs<ExtArgs>
+    userPreferences?: boolean | User$userPreferencesArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1951,6 +2053,7 @@ export namespace Prisma {
       simulations: Prisma.$SimulationPayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
       budgetScenarios: Prisma.$BudgetScenarioPayload<ExtArgs>[]
+      userPreferences: Prisma.$UserPreferencesPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2356,6 +2459,7 @@ export namespace Prisma {
     simulations<T extends User$simulationsArgs<ExtArgs> = {}>(args?: Subset<T, User$simulationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SimulationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     budgetScenarios<T extends User$budgetScenariosArgs<ExtArgs> = {}>(args?: Subset<T, User$budgetScenariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    userPreferences<T extends User$userPreferencesArgs<ExtArgs> = {}>(args?: Subset<T, User$userPreferencesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2853,6 +2957,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: BudgetScenarioScalarFieldEnum | BudgetScenarioScalarFieldEnum[]
+  }
+
+  /**
+   * User.userPreferences
+   */
+  export type User$userPreferencesArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    where?: UserPreferencesWhereInput
+    orderBy?: UserPreferencesOrderByWithRelationInput | UserPreferencesOrderByWithRelationInput[]
+    cursor?: UserPreferencesWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: UserPreferencesScalarFieldEnum | UserPreferencesScalarFieldEnum[]
   }
 
   /**
@@ -12054,6 +12182,1198 @@ export namespace Prisma {
 
 
   /**
+   * Model UserPreferences
+   */
+
+  export type AggregateUserPreferences = {
+    _count: UserPreferencesCountAggregateOutputType | null
+    _avg: UserPreferencesAvgAggregateOutputType | null
+    _sum: UserPreferencesSumAggregateOutputType | null
+    _min: UserPreferencesMinAggregateOutputType | null
+    _max: UserPreferencesMaxAggregateOutputType | null
+  }
+
+  export type UserPreferencesAvgAggregateOutputType = {
+    defaultGrowthRate: number | null
+    fiscalYearStart: number | null
+  }
+
+  export type UserPreferencesSumAggregateOutputType = {
+    defaultGrowthRate: number | null
+    fiscalYearStart: number | null
+  }
+
+  export type UserPreferencesMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    defaultGrowthRate: number | null
+    defaultGrowthPeriod: string | null
+    currency: string | null
+    fiscalYearStart: number | null
+    notifWelcome: boolean | null
+    notifReportReady: boolean | null
+    notifProductUpdates: boolean | null
+    notifWeeklyDigest: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserPreferencesMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    defaultGrowthRate: number | null
+    defaultGrowthPeriod: string | null
+    currency: string | null
+    fiscalYearStart: number | null
+    notifWelcome: boolean | null
+    notifReportReady: boolean | null
+    notifProductUpdates: boolean | null
+    notifWeeklyDigest: boolean | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type UserPreferencesCountAggregateOutputType = {
+    id: number
+    userId: number
+    defaultGrowthRate: number
+    defaultGrowthPeriod: number
+    currency: number
+    fiscalYearStart: number
+    notifWelcome: number
+    notifReportReady: number
+    notifProductUpdates: number
+    notifWeeklyDigest: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type UserPreferencesAvgAggregateInputType = {
+    defaultGrowthRate?: true
+    fiscalYearStart?: true
+  }
+
+  export type UserPreferencesSumAggregateInputType = {
+    defaultGrowthRate?: true
+    fiscalYearStart?: true
+  }
+
+  export type UserPreferencesMinAggregateInputType = {
+    id?: true
+    userId?: true
+    defaultGrowthRate?: true
+    defaultGrowthPeriod?: true
+    currency?: true
+    fiscalYearStart?: true
+    notifWelcome?: true
+    notifReportReady?: true
+    notifProductUpdates?: true
+    notifWeeklyDigest?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserPreferencesMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    defaultGrowthRate?: true
+    defaultGrowthPeriod?: true
+    currency?: true
+    fiscalYearStart?: true
+    notifWelcome?: true
+    notifReportReady?: true
+    notifProductUpdates?: true
+    notifWeeklyDigest?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type UserPreferencesCountAggregateInputType = {
+    id?: true
+    userId?: true
+    defaultGrowthRate?: true
+    defaultGrowthPeriod?: true
+    currency?: true
+    fiscalYearStart?: true
+    notifWelcome?: true
+    notifReportReady?: true
+    notifProductUpdates?: true
+    notifWeeklyDigest?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type UserPreferencesAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserPreferences to aggregate.
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPreferences to fetch.
+     */
+    orderBy?: UserPreferencesOrderByWithRelationInput | UserPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: UserPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned UserPreferences
+    **/
+    _count?: true | UserPreferencesCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: UserPreferencesAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: UserPreferencesSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: UserPreferencesMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: UserPreferencesMaxAggregateInputType
+  }
+
+  export type GetUserPreferencesAggregateType<T extends UserPreferencesAggregateArgs> = {
+        [P in keyof T & keyof AggregateUserPreferences]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateUserPreferences[P]>
+      : GetScalarType<T[P], AggregateUserPreferences[P]>
+  }
+
+
+
+
+  export type UserPreferencesGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: UserPreferencesWhereInput
+    orderBy?: UserPreferencesOrderByWithAggregationInput | UserPreferencesOrderByWithAggregationInput[]
+    by: UserPreferencesScalarFieldEnum[] | UserPreferencesScalarFieldEnum
+    having?: UserPreferencesScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: UserPreferencesCountAggregateInputType | true
+    _avg?: UserPreferencesAvgAggregateInputType
+    _sum?: UserPreferencesSumAggregateInputType
+    _min?: UserPreferencesMinAggregateInputType
+    _max?: UserPreferencesMaxAggregateInputType
+  }
+
+  export type UserPreferencesGroupByOutputType = {
+    id: string
+    userId: string
+    defaultGrowthRate: number
+    defaultGrowthPeriod: string
+    currency: string
+    fiscalYearStart: number
+    notifWelcome: boolean
+    notifReportReady: boolean
+    notifProductUpdates: boolean
+    notifWeeklyDigest: boolean
+    createdAt: Date
+    updatedAt: Date
+    _count: UserPreferencesCountAggregateOutputType | null
+    _avg: UserPreferencesAvgAggregateOutputType | null
+    _sum: UserPreferencesSumAggregateOutputType | null
+    _min: UserPreferencesMinAggregateOutputType | null
+    _max: UserPreferencesMaxAggregateOutputType | null
+  }
+
+  type GetUserPreferencesGroupByPayload<T extends UserPreferencesGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<UserPreferencesGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof UserPreferencesGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], UserPreferencesGroupByOutputType[P]>
+            : GetScalarType<T[P], UserPreferencesGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type UserPreferencesSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    defaultGrowthRate?: boolean
+    defaultGrowthPeriod?: boolean
+    currency?: boolean
+    fiscalYearStart?: boolean
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userPreferences"]>
+
+  export type UserPreferencesSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    defaultGrowthRate?: boolean
+    defaultGrowthPeriod?: boolean
+    currency?: boolean
+    fiscalYearStart?: boolean
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userPreferences"]>
+
+  export type UserPreferencesSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    defaultGrowthRate?: boolean
+    defaultGrowthPeriod?: boolean
+    currency?: boolean
+    fiscalYearStart?: boolean
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["userPreferences"]>
+
+  export type UserPreferencesSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    defaultGrowthRate?: boolean
+    defaultGrowthPeriod?: boolean
+    currency?: boolean
+    fiscalYearStart?: boolean
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type UserPreferencesOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "defaultGrowthRate" | "defaultGrowthPeriod" | "currency" | "fiscalYearStart" | "notifWelcome" | "notifReportReady" | "notifProductUpdates" | "notifWeeklyDigest" | "createdAt" | "updatedAt", ExtArgs["result"]["userPreferences"]>
+  export type UserPreferencesInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserPreferencesIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type UserPreferencesIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $UserPreferencesPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "UserPreferences"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      defaultGrowthRate: number
+      defaultGrowthPeriod: string
+      currency: string
+      fiscalYearStart: number
+      notifWelcome: boolean
+      notifReportReady: boolean
+      notifProductUpdates: boolean
+      notifWeeklyDigest: boolean
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["userPreferences"]>
+    composites: {}
+  }
+
+  type UserPreferencesGetPayload<S extends boolean | null | undefined | UserPreferencesDefaultArgs> = $Result.GetResult<Prisma.$UserPreferencesPayload, S>
+
+  type UserPreferencesCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<UserPreferencesFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: UserPreferencesCountAggregateInputType | true
+    }
+
+  export interface UserPreferencesDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['UserPreferences'], meta: { name: 'UserPreferences' } }
+    /**
+     * Find zero or one UserPreferences that matches the filter.
+     * @param {UserPreferencesFindUniqueArgs} args - Arguments to find a UserPreferences
+     * @example
+     * // Get one UserPreferences
+     * const userPreferences = await prisma.userPreferences.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends UserPreferencesFindUniqueArgs>(args: SelectSubset<T, UserPreferencesFindUniqueArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one UserPreferences that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {UserPreferencesFindUniqueOrThrowArgs} args - Arguments to find a UserPreferences
+     * @example
+     * // Get one UserPreferences
+     * const userPreferences = await prisma.userPreferences.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends UserPreferencesFindUniqueOrThrowArgs>(args: SelectSubset<T, UserPreferencesFindUniqueOrThrowArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserPreferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesFindFirstArgs} args - Arguments to find a UserPreferences
+     * @example
+     * // Get one UserPreferences
+     * const userPreferences = await prisma.userPreferences.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends UserPreferencesFindFirstArgs>(args?: SelectSubset<T, UserPreferencesFindFirstArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first UserPreferences that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesFindFirstOrThrowArgs} args - Arguments to find a UserPreferences
+     * @example
+     * // Get one UserPreferences
+     * const userPreferences = await prisma.userPreferences.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends UserPreferencesFindFirstOrThrowArgs>(args?: SelectSubset<T, UserPreferencesFindFirstOrThrowArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more UserPreferences that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all UserPreferences
+     * const userPreferences = await prisma.userPreferences.findMany()
+     * 
+     * // Get first 10 UserPreferences
+     * const userPreferences = await prisma.userPreferences.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const userPreferencesWithIdOnly = await prisma.userPreferences.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends UserPreferencesFindManyArgs>(args?: SelectSubset<T, UserPreferencesFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a UserPreferences.
+     * @param {UserPreferencesCreateArgs} args - Arguments to create a UserPreferences.
+     * @example
+     * // Create one UserPreferences
+     * const UserPreferences = await prisma.userPreferences.create({
+     *   data: {
+     *     // ... data to create a UserPreferences
+     *   }
+     * })
+     * 
+     */
+    create<T extends UserPreferencesCreateArgs>(args: SelectSubset<T, UserPreferencesCreateArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many UserPreferences.
+     * @param {UserPreferencesCreateManyArgs} args - Arguments to create many UserPreferences.
+     * @example
+     * // Create many UserPreferences
+     * const userPreferences = await prisma.userPreferences.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends UserPreferencesCreateManyArgs>(args?: SelectSubset<T, UserPreferencesCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many UserPreferences and returns the data saved in the database.
+     * @param {UserPreferencesCreateManyAndReturnArgs} args - Arguments to create many UserPreferences.
+     * @example
+     * // Create many UserPreferences
+     * const userPreferences = await prisma.userPreferences.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many UserPreferences and only return the `id`
+     * const userPreferencesWithIdOnly = await prisma.userPreferences.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends UserPreferencesCreateManyAndReturnArgs>(args?: SelectSubset<T, UserPreferencesCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a UserPreferences.
+     * @param {UserPreferencesDeleteArgs} args - Arguments to delete one UserPreferences.
+     * @example
+     * // Delete one UserPreferences
+     * const UserPreferences = await prisma.userPreferences.delete({
+     *   where: {
+     *     // ... filter to delete one UserPreferences
+     *   }
+     * })
+     * 
+     */
+    delete<T extends UserPreferencesDeleteArgs>(args: SelectSubset<T, UserPreferencesDeleteArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one UserPreferences.
+     * @param {UserPreferencesUpdateArgs} args - Arguments to update one UserPreferences.
+     * @example
+     * // Update one UserPreferences
+     * const userPreferences = await prisma.userPreferences.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends UserPreferencesUpdateArgs>(args: SelectSubset<T, UserPreferencesUpdateArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more UserPreferences.
+     * @param {UserPreferencesDeleteManyArgs} args - Arguments to filter UserPreferences to delete.
+     * @example
+     * // Delete a few UserPreferences
+     * const { count } = await prisma.userPreferences.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends UserPreferencesDeleteManyArgs>(args?: SelectSubset<T, UserPreferencesDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many UserPreferences
+     * const userPreferences = await prisma.userPreferences.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends UserPreferencesUpdateManyArgs>(args: SelectSubset<T, UserPreferencesUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more UserPreferences and returns the data updated in the database.
+     * @param {UserPreferencesUpdateManyAndReturnArgs} args - Arguments to update many UserPreferences.
+     * @example
+     * // Update many UserPreferences
+     * const userPreferences = await prisma.userPreferences.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more UserPreferences and only return the `id`
+     * const userPreferencesWithIdOnly = await prisma.userPreferences.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends UserPreferencesUpdateManyAndReturnArgs>(args: SelectSubset<T, UserPreferencesUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one UserPreferences.
+     * @param {UserPreferencesUpsertArgs} args - Arguments to update or create a UserPreferences.
+     * @example
+     * // Update or create a UserPreferences
+     * const userPreferences = await prisma.userPreferences.upsert({
+     *   create: {
+     *     // ... data to create a UserPreferences
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the UserPreferences we want to update
+     *   }
+     * })
+     */
+    upsert<T extends UserPreferencesUpsertArgs>(args: SelectSubset<T, UserPreferencesUpsertArgs<ExtArgs>>): Prisma__UserPreferencesClient<$Result.GetResult<Prisma.$UserPreferencesPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of UserPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesCountArgs} args - Arguments to filter UserPreferences to count.
+     * @example
+     * // Count the number of UserPreferences
+     * const count = await prisma.userPreferences.count({
+     *   where: {
+     *     // ... the filter for the UserPreferences we want to count
+     *   }
+     * })
+    **/
+    count<T extends UserPreferencesCountArgs>(
+      args?: Subset<T, UserPreferencesCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], UserPreferencesCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a UserPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends UserPreferencesAggregateArgs>(args: Subset<T, UserPreferencesAggregateArgs>): Prisma.PrismaPromise<GetUserPreferencesAggregateType<T>>
+
+    /**
+     * Group by UserPreferences.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {UserPreferencesGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends UserPreferencesGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: UserPreferencesGroupByArgs['orderBy'] }
+        : { orderBy?: UserPreferencesGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, UserPreferencesGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetUserPreferencesGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the UserPreferences model
+   */
+  readonly fields: UserPreferencesFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for UserPreferences.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__UserPreferencesClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the UserPreferences model
+   */
+  interface UserPreferencesFieldRefs {
+    readonly id: FieldRef<"UserPreferences", 'String'>
+    readonly userId: FieldRef<"UserPreferences", 'String'>
+    readonly defaultGrowthRate: FieldRef<"UserPreferences", 'Float'>
+    readonly defaultGrowthPeriod: FieldRef<"UserPreferences", 'String'>
+    readonly currency: FieldRef<"UserPreferences", 'String'>
+    readonly fiscalYearStart: FieldRef<"UserPreferences", 'Int'>
+    readonly notifWelcome: FieldRef<"UserPreferences", 'Boolean'>
+    readonly notifReportReady: FieldRef<"UserPreferences", 'Boolean'>
+    readonly notifProductUpdates: FieldRef<"UserPreferences", 'Boolean'>
+    readonly notifWeeklyDigest: FieldRef<"UserPreferences", 'Boolean'>
+    readonly createdAt: FieldRef<"UserPreferences", 'DateTime'>
+    readonly updatedAt: FieldRef<"UserPreferences", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * UserPreferences findUnique
+   */
+  export type UserPreferencesFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPreferences to fetch.
+     */
+    where: UserPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserPreferences findUniqueOrThrow
+   */
+  export type UserPreferencesFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPreferences to fetch.
+     */
+    where: UserPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserPreferences findFirst
+   */
+  export type UserPreferencesFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPreferences to fetch.
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPreferences to fetch.
+     */
+    orderBy?: UserPreferencesOrderByWithRelationInput | UserPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserPreferences.
+     */
+    cursor?: UserPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPreferences.
+     */
+    distinct?: UserPreferencesScalarFieldEnum | UserPreferencesScalarFieldEnum[]
+  }
+
+  /**
+   * UserPreferences findFirstOrThrow
+   */
+  export type UserPreferencesFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPreferences to fetch.
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPreferences to fetch.
+     */
+    orderBy?: UserPreferencesOrderByWithRelationInput | UserPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for UserPreferences.
+     */
+    cursor?: UserPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPreferences.
+     */
+    distinct?: UserPreferencesScalarFieldEnum | UserPreferencesScalarFieldEnum[]
+  }
+
+  /**
+   * UserPreferences findMany
+   */
+  export type UserPreferencesFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter, which UserPreferences to fetch.
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of UserPreferences to fetch.
+     */
+    orderBy?: UserPreferencesOrderByWithRelationInput | UserPreferencesOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing UserPreferences.
+     */
+    cursor?: UserPreferencesWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` UserPreferences from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` UserPreferences.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of UserPreferences.
+     */
+    distinct?: UserPreferencesScalarFieldEnum | UserPreferencesScalarFieldEnum[]
+  }
+
+  /**
+   * UserPreferences create
+   */
+  export type UserPreferencesCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * The data needed to create a UserPreferences.
+     */
+    data: XOR<UserPreferencesCreateInput, UserPreferencesUncheckedCreateInput>
+  }
+
+  /**
+   * UserPreferences createMany
+   */
+  export type UserPreferencesCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many UserPreferences.
+     */
+    data: UserPreferencesCreateManyInput | UserPreferencesCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * UserPreferences createManyAndReturn
+   */
+  export type UserPreferencesCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * The data used to create many UserPreferences.
+     */
+    data: UserPreferencesCreateManyInput | UserPreferencesCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserPreferences update
+   */
+  export type UserPreferencesUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * The data needed to update a UserPreferences.
+     */
+    data: XOR<UserPreferencesUpdateInput, UserPreferencesUncheckedUpdateInput>
+    /**
+     * Choose, which UserPreferences to update.
+     */
+    where: UserPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserPreferences updateMany
+   */
+  export type UserPreferencesUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update UserPreferences.
+     */
+    data: XOR<UserPreferencesUpdateManyMutationInput, UserPreferencesUncheckedUpdateManyInput>
+    /**
+     * Filter which UserPreferences to update
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * Limit how many UserPreferences to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserPreferences updateManyAndReturn
+   */
+  export type UserPreferencesUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * The data used to update UserPreferences.
+     */
+    data: XOR<UserPreferencesUpdateManyMutationInput, UserPreferencesUncheckedUpdateManyInput>
+    /**
+     * Filter which UserPreferences to update
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * Limit how many UserPreferences to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * UserPreferences upsert
+   */
+  export type UserPreferencesUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * The filter to search for the UserPreferences to update in case it exists.
+     */
+    where: UserPreferencesWhereUniqueInput
+    /**
+     * In case the UserPreferences found by the `where` argument doesn't exist, create a new UserPreferences with this data.
+     */
+    create: XOR<UserPreferencesCreateInput, UserPreferencesUncheckedCreateInput>
+    /**
+     * In case the UserPreferences was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<UserPreferencesUpdateInput, UserPreferencesUncheckedUpdateInput>
+  }
+
+  /**
+   * UserPreferences delete
+   */
+  export type UserPreferencesDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+    /**
+     * Filter which UserPreferences to delete.
+     */
+    where: UserPreferencesWhereUniqueInput
+  }
+
+  /**
+   * UserPreferences deleteMany
+   */
+  export type UserPreferencesDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which UserPreferences to delete
+     */
+    where?: UserPreferencesWhereInput
+    /**
+     * Limit how many UserPreferences to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * UserPreferences without action
+   */
+  export type UserPreferencesDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the UserPreferences
+     */
+    select?: UserPreferencesSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the UserPreferences
+     */
+    omit?: UserPreferencesOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: UserPreferencesInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -12185,6 +13505,24 @@ export namespace Prisma {
   };
 
   export type BudgetScenarioScalarFieldEnum = (typeof BudgetScenarioScalarFieldEnum)[keyof typeof BudgetScenarioScalarFieldEnum]
+
+
+  export const UserPreferencesScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    defaultGrowthRate: 'defaultGrowthRate',
+    defaultGrowthPeriod: 'defaultGrowthPeriod',
+    currency: 'currency',
+    fiscalYearStart: 'fiscalYearStart',
+    notifWelcome: 'notifWelcome',
+    notifReportReady: 'notifReportReady',
+    notifProductUpdates: 'notifProductUpdates',
+    notifWeeklyDigest: 'notifWeeklyDigest',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type UserPreferencesScalarFieldEnum = (typeof UserPreferencesScalarFieldEnum)[keyof typeof UserPreferencesScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -12353,6 +13691,7 @@ export namespace Prisma {
     simulations?: SimulationListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     budgetScenarios?: BudgetScenarioListRelationFilter
+    userPreferences?: UserPreferencesListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -12365,6 +13704,7 @@ export namespace Prisma {
     simulations?: SimulationOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
     budgetScenarios?: BudgetScenarioOrderByRelationAggregateInput
+    userPreferences?: UserPreferencesOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -12380,6 +13720,7 @@ export namespace Prisma {
     simulations?: SimulationListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
     budgetScenarios?: BudgetScenarioListRelationFilter
+    userPreferences?: UserPreferencesListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -12975,6 +14316,98 @@ export namespace Prisma {
     updatedAt?: DateTimeWithAggregatesFilter<"BudgetScenario"> | Date | string
   }
 
+  export type UserPreferencesWhereInput = {
+    AND?: UserPreferencesWhereInput | UserPreferencesWhereInput[]
+    OR?: UserPreferencesWhereInput[]
+    NOT?: UserPreferencesWhereInput | UserPreferencesWhereInput[]
+    id?: StringFilter<"UserPreferences"> | string
+    userId?: StringFilter<"UserPreferences"> | string
+    defaultGrowthRate?: FloatFilter<"UserPreferences"> | number
+    defaultGrowthPeriod?: StringFilter<"UserPreferences"> | string
+    currency?: StringFilter<"UserPreferences"> | string
+    fiscalYearStart?: IntFilter<"UserPreferences"> | number
+    notifWelcome?: BoolFilter<"UserPreferences"> | boolean
+    notifReportReady?: BoolFilter<"UserPreferences"> | boolean
+    notifProductUpdates?: BoolFilter<"UserPreferences"> | boolean
+    notifWeeklyDigest?: BoolFilter<"UserPreferences"> | boolean
+    createdAt?: DateTimeFilter<"UserPreferences"> | Date | string
+    updatedAt?: DateTimeFilter<"UserPreferences"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type UserPreferencesOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultGrowthRate?: SortOrder
+    defaultGrowthPeriod?: SortOrder
+    currency?: SortOrder
+    fiscalYearStart?: SortOrder
+    notifWelcome?: SortOrder
+    notifReportReady?: SortOrder
+    notifProductUpdates?: SortOrder
+    notifWeeklyDigest?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type UserPreferencesWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    userId?: string
+    AND?: UserPreferencesWhereInput | UserPreferencesWhereInput[]
+    OR?: UserPreferencesWhereInput[]
+    NOT?: UserPreferencesWhereInput | UserPreferencesWhereInput[]
+    defaultGrowthRate?: FloatFilter<"UserPreferences"> | number
+    defaultGrowthPeriod?: StringFilter<"UserPreferences"> | string
+    currency?: StringFilter<"UserPreferences"> | string
+    fiscalYearStart?: IntFilter<"UserPreferences"> | number
+    notifWelcome?: BoolFilter<"UserPreferences"> | boolean
+    notifReportReady?: BoolFilter<"UserPreferences"> | boolean
+    notifProductUpdates?: BoolFilter<"UserPreferences"> | boolean
+    notifWeeklyDigest?: BoolFilter<"UserPreferences"> | boolean
+    createdAt?: DateTimeFilter<"UserPreferences"> | Date | string
+    updatedAt?: DateTimeFilter<"UserPreferences"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id" | "userId">
+
+  export type UserPreferencesOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultGrowthRate?: SortOrder
+    defaultGrowthPeriod?: SortOrder
+    currency?: SortOrder
+    fiscalYearStart?: SortOrder
+    notifWelcome?: SortOrder
+    notifReportReady?: SortOrder
+    notifProductUpdates?: SortOrder
+    notifWeeklyDigest?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: UserPreferencesCountOrderByAggregateInput
+    _avg?: UserPreferencesAvgOrderByAggregateInput
+    _max?: UserPreferencesMaxOrderByAggregateInput
+    _min?: UserPreferencesMinOrderByAggregateInput
+    _sum?: UserPreferencesSumOrderByAggregateInput
+  }
+
+  export type UserPreferencesScalarWhereWithAggregatesInput = {
+    AND?: UserPreferencesScalarWhereWithAggregatesInput | UserPreferencesScalarWhereWithAggregatesInput[]
+    OR?: UserPreferencesScalarWhereWithAggregatesInput[]
+    NOT?: UserPreferencesScalarWhereWithAggregatesInput | UserPreferencesScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"UserPreferences"> | string
+    userId?: StringWithAggregatesFilter<"UserPreferences"> | string
+    defaultGrowthRate?: FloatWithAggregatesFilter<"UserPreferences"> | number
+    defaultGrowthPeriod?: StringWithAggregatesFilter<"UserPreferences"> | string
+    currency?: StringWithAggregatesFilter<"UserPreferences"> | string
+    fiscalYearStart?: IntWithAggregatesFilter<"UserPreferences"> | number
+    notifWelcome?: BoolWithAggregatesFilter<"UserPreferences"> | boolean
+    notifReportReady?: BoolWithAggregatesFilter<"UserPreferences"> | boolean
+    notifProductUpdates?: BoolWithAggregatesFilter<"UserPreferences"> | boolean
+    notifWeeklyDigest?: BoolWithAggregatesFilter<"UserPreferences"> | boolean
+    createdAt?: DateTimeWithAggregatesFilter<"UserPreferences"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"UserPreferences"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -12985,6 +14418,7 @@ export namespace Prisma {
     simulations?: SimulationCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -12997,6 +14431,7 @@ export namespace Prisma {
     simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -13009,6 +14444,7 @@ export namespace Prisma {
     simulations?: SimulationUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -13021,6 +14457,7 @@ export namespace Prisma {
     simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -13650,6 +15087,110 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type UserPreferencesCreateInput = {
+    id?: string
+    defaultGrowthRate?: number
+    defaultGrowthPeriod?: string
+    currency?: string
+    fiscalYearStart?: number
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutUserPreferencesInput
+  }
+
+  export type UserPreferencesUncheckedCreateInput = {
+    id?: string
+    userId: string
+    defaultGrowthRate?: number
+    defaultGrowthPeriod?: string
+    currency?: string
+    fiscalYearStart?: number
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserPreferencesUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutUserPreferencesNestedInput
+  }
+
+  export type UserPreferencesUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPreferencesCreateManyInput = {
+    id?: string
+    userId: string
+    defaultGrowthRate?: number
+    defaultGrowthPeriod?: string
+    currency?: string
+    fiscalYearStart?: number
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserPreferencesUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPreferencesUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -13709,6 +15250,12 @@ export namespace Prisma {
     none?: BudgetScenarioWhereInput
   }
 
+  export type UserPreferencesListRelationFilter = {
+    every?: UserPreferencesWhereInput
+    some?: UserPreferencesWhereInput
+    none?: UserPreferencesWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -13723,6 +15270,10 @@ export namespace Prisma {
   }
 
   export type BudgetScenarioOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type UserPreferencesOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -14336,6 +15887,61 @@ export namespace Prisma {
     _max?: NestedEnumGrowthPeriodFilter<$PrismaModel>
   }
 
+  export type UserPreferencesCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultGrowthRate?: SortOrder
+    defaultGrowthPeriod?: SortOrder
+    currency?: SortOrder
+    fiscalYearStart?: SortOrder
+    notifWelcome?: SortOrder
+    notifReportReady?: SortOrder
+    notifProductUpdates?: SortOrder
+    notifWeeklyDigest?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserPreferencesAvgOrderByAggregateInput = {
+    defaultGrowthRate?: SortOrder
+    fiscalYearStart?: SortOrder
+  }
+
+  export type UserPreferencesMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultGrowthRate?: SortOrder
+    defaultGrowthPeriod?: SortOrder
+    currency?: SortOrder
+    fiscalYearStart?: SortOrder
+    notifWelcome?: SortOrder
+    notifReportReady?: SortOrder
+    notifProductUpdates?: SortOrder
+    notifWeeklyDigest?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserPreferencesMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    defaultGrowthRate?: SortOrder
+    defaultGrowthPeriod?: SortOrder
+    currency?: SortOrder
+    fiscalYearStart?: SortOrder
+    notifWelcome?: SortOrder
+    notifReportReady?: SortOrder
+    notifProductUpdates?: SortOrder
+    notifWeeklyDigest?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type UserPreferencesSumOrderByAggregateInput = {
+    defaultGrowthRate?: SortOrder
+    fiscalYearStart?: SortOrder
+  }
+
   export type SimulationCreateNestedManyWithoutUserInput = {
     create?: XOR<SimulationCreateWithoutUserInput, SimulationUncheckedCreateWithoutUserInput> | SimulationCreateWithoutUserInput[] | SimulationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SimulationCreateOrConnectWithoutUserInput | SimulationCreateOrConnectWithoutUserInput[]
@@ -14357,6 +15963,13 @@ export namespace Prisma {
     connect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
   }
 
+  export type UserPreferencesCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserPreferencesCreateWithoutUserInput, UserPreferencesUncheckedCreateWithoutUserInput> | UserPreferencesCreateWithoutUserInput[] | UserPreferencesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPreferencesCreateOrConnectWithoutUserInput | UserPreferencesCreateOrConnectWithoutUserInput[]
+    createMany?: UserPreferencesCreateManyUserInputEnvelope
+    connect?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+  }
+
   export type SimulationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SimulationCreateWithoutUserInput, SimulationUncheckedCreateWithoutUserInput> | SimulationCreateWithoutUserInput[] | SimulationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SimulationCreateOrConnectWithoutUserInput | SimulationCreateOrConnectWithoutUserInput[]
@@ -14376,6 +15989,13 @@ export namespace Prisma {
     connectOrCreate?: BudgetScenarioCreateOrConnectWithoutUserInput | BudgetScenarioCreateOrConnectWithoutUserInput[]
     createMany?: BudgetScenarioCreateManyUserInputEnvelope
     connect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+  }
+
+  export type UserPreferencesUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<UserPreferencesCreateWithoutUserInput, UserPreferencesUncheckedCreateWithoutUserInput> | UserPreferencesCreateWithoutUserInput[] | UserPreferencesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPreferencesCreateOrConnectWithoutUserInput | UserPreferencesCreateOrConnectWithoutUserInput[]
+    createMany?: UserPreferencesCreateManyUserInputEnvelope
+    connect?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -14432,6 +16052,20 @@ export namespace Prisma {
     deleteMany?: BudgetScenarioScalarWhereInput | BudgetScenarioScalarWhereInput[]
   }
 
+  export type UserPreferencesUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserPreferencesCreateWithoutUserInput, UserPreferencesUncheckedCreateWithoutUserInput> | UserPreferencesCreateWithoutUserInput[] | UserPreferencesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPreferencesCreateOrConnectWithoutUserInput | UserPreferencesCreateOrConnectWithoutUserInput[]
+    upsert?: UserPreferencesUpsertWithWhereUniqueWithoutUserInput | UserPreferencesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserPreferencesCreateManyUserInputEnvelope
+    set?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    disconnect?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    delete?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    connect?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    update?: UserPreferencesUpdateWithWhereUniqueWithoutUserInput | UserPreferencesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserPreferencesUpdateManyWithWhereWithoutUserInput | UserPreferencesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserPreferencesScalarWhereInput | UserPreferencesScalarWhereInput[]
+  }
+
   export type SimulationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SimulationCreateWithoutUserInput, SimulationUncheckedCreateWithoutUserInput> | SimulationCreateWithoutUserInput[] | SimulationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SimulationCreateOrConnectWithoutUserInput | SimulationCreateOrConnectWithoutUserInput[]
@@ -14472,6 +16106,20 @@ export namespace Prisma {
     update?: BudgetScenarioUpdateWithWhereUniqueWithoutUserInput | BudgetScenarioUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: BudgetScenarioUpdateManyWithWhereWithoutUserInput | BudgetScenarioUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: BudgetScenarioScalarWhereInput | BudgetScenarioScalarWhereInput[]
+  }
+
+  export type UserPreferencesUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<UserPreferencesCreateWithoutUserInput, UserPreferencesUncheckedCreateWithoutUserInput> | UserPreferencesCreateWithoutUserInput[] | UserPreferencesUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: UserPreferencesCreateOrConnectWithoutUserInput | UserPreferencesCreateOrConnectWithoutUserInput[]
+    upsert?: UserPreferencesUpsertWithWhereUniqueWithoutUserInput | UserPreferencesUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: UserPreferencesCreateManyUserInputEnvelope
+    set?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    disconnect?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    delete?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    connect?: UserPreferencesWhereUniqueInput | UserPreferencesWhereUniqueInput[]
+    update?: UserPreferencesUpdateWithWhereUniqueWithoutUserInput | UserPreferencesUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: UserPreferencesUpdateManyWithWhereWithoutUserInput | UserPreferencesUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: UserPreferencesScalarWhereInput | UserPreferencesScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSimulationsInput = {
@@ -14814,6 +16462,20 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBudgetScenariosInput, UserUpdateWithoutBudgetScenariosInput>, UserUncheckedUpdateWithoutBudgetScenariosInput>
   }
 
+  export type UserCreateNestedOneWithoutUserPreferencesInput = {
+    create?: XOR<UserCreateWithoutUserPreferencesInput, UserUncheckedCreateWithoutUserPreferencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserPreferencesInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type UserUpdateOneRequiredWithoutUserPreferencesNestedInput = {
+    create?: XOR<UserCreateWithoutUserPreferencesInput, UserUncheckedCreateWithoutUserPreferencesInput>
+    connectOrCreate?: UserCreateOrConnectWithoutUserPreferencesInput
+    upsert?: UserUpsertWithoutUserPreferencesInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutUserPreferencesInput, UserUpdateWithoutUserPreferencesInput>, UserUncheckedUpdateWithoutUserPreferencesInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -15144,6 +16806,44 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type UserPreferencesCreateWithoutUserInput = {
+    id?: string
+    defaultGrowthRate?: number
+    defaultGrowthPeriod?: string
+    currency?: string
+    fiscalYearStart?: number
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserPreferencesUncheckedCreateWithoutUserInput = {
+    id?: string
+    defaultGrowthRate?: number
+    defaultGrowthPeriod?: string
+    currency?: string
+    fiscalYearStart?: number
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserPreferencesCreateOrConnectWithoutUserInput = {
+    where: UserPreferencesWhereUniqueInput
+    create: XOR<UserPreferencesCreateWithoutUserInput, UserPreferencesUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserPreferencesCreateManyUserInputEnvelope = {
+    data: UserPreferencesCreateManyUserInput | UserPreferencesCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SimulationUpsertWithWhereUniqueWithoutUserInput = {
     where: SimulationWhereUniqueInput
     update: XOR<SimulationUpdateWithoutUserInput, SimulationUncheckedUpdateWithoutUserInput>
@@ -15238,6 +16938,40 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"BudgetScenario"> | Date | string
   }
 
+  export type UserPreferencesUpsertWithWhereUniqueWithoutUserInput = {
+    where: UserPreferencesWhereUniqueInput
+    update: XOR<UserPreferencesUpdateWithoutUserInput, UserPreferencesUncheckedUpdateWithoutUserInput>
+    create: XOR<UserPreferencesCreateWithoutUserInput, UserPreferencesUncheckedCreateWithoutUserInput>
+  }
+
+  export type UserPreferencesUpdateWithWhereUniqueWithoutUserInput = {
+    where: UserPreferencesWhereUniqueInput
+    data: XOR<UserPreferencesUpdateWithoutUserInput, UserPreferencesUncheckedUpdateWithoutUserInput>
+  }
+
+  export type UserPreferencesUpdateManyWithWhereWithoutUserInput = {
+    where: UserPreferencesScalarWhereInput
+    data: XOR<UserPreferencesUpdateManyMutationInput, UserPreferencesUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type UserPreferencesScalarWhereInput = {
+    AND?: UserPreferencesScalarWhereInput | UserPreferencesScalarWhereInput[]
+    OR?: UserPreferencesScalarWhereInput[]
+    NOT?: UserPreferencesScalarWhereInput | UserPreferencesScalarWhereInput[]
+    id?: StringFilter<"UserPreferences"> | string
+    userId?: StringFilter<"UserPreferences"> | string
+    defaultGrowthRate?: FloatFilter<"UserPreferences"> | number
+    defaultGrowthPeriod?: StringFilter<"UserPreferences"> | string
+    currency?: StringFilter<"UserPreferences"> | string
+    fiscalYearStart?: IntFilter<"UserPreferences"> | number
+    notifWelcome?: BoolFilter<"UserPreferences"> | boolean
+    notifReportReady?: BoolFilter<"UserPreferences"> | boolean
+    notifProductUpdates?: BoolFilter<"UserPreferences"> | boolean
+    notifWeeklyDigest?: BoolFilter<"UserPreferences"> | boolean
+    createdAt?: DateTimeFilter<"UserPreferences"> | Date | string
+    updatedAt?: DateTimeFilter<"UserPreferences"> | Date | string
+  }
+
   export type UserCreateWithoutSimulationsInput = {
     id?: string
     email: string
@@ -15247,6 +16981,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
     budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSimulationsInput = {
@@ -15258,6 +16993,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
     budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSimulationsInput = {
@@ -15414,6 +17150,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
     budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSimulationsInput = {
@@ -15425,6 +17162,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
     budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RevenueSourceUpsertWithWhereUniqueWithoutSimulationInput = {
@@ -15962,6 +17700,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     simulations?: SimulationCreateNestedManyWithoutUserInput
     budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -15973,6 +17712,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
     budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -16000,6 +17740,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUpdateManyWithoutUserNestedInput
     budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -16011,6 +17752,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
     budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutBudgetScenariosInput = {
@@ -16022,6 +17764,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     simulations?: SimulationCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutBudgetScenariosInput = {
@@ -16033,6 +17776,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    userPreferences?: UserPreferencesUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutBudgetScenariosInput = {
@@ -16060,6 +17804,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutBudgetScenariosInput = {
@@ -16071,6 +17816,71 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    userPreferences?: UserPreferencesUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutUserPreferencesInput = {
+    id?: string
+    email: string
+    password: string
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    simulations?: SimulationCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutUserPreferencesInput = {
+    id?: string
+    email: string
+    password: string
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutUserPreferencesInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutUserPreferencesInput, UserUncheckedCreateWithoutUserPreferencesInput>
+  }
+
+  export type UserUpsertWithoutUserPreferencesInput = {
+    update: XOR<UserUpdateWithoutUserPreferencesInput, UserUncheckedUpdateWithoutUserPreferencesInput>
+    create: XOR<UserCreateWithoutUserPreferencesInput, UserUncheckedCreateWithoutUserPreferencesInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutUserPreferencesInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutUserPreferencesInput, UserUncheckedUpdateWithoutUserPreferencesInput>
+  }
+
+  export type UserUpdateWithoutUserPreferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    simulations?: SimulationUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutUserPreferencesInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SimulationCreateManyUserInput = {
@@ -16103,6 +17913,20 @@ export namespace Prisma {
     supplies: number
     administrative: number
     classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type UserPreferencesCreateManyUserInput = {
+    id?: string
+    defaultGrowthRate?: number
+    defaultGrowthPeriod?: string
+    currency?: string
+    fiscalYearStart?: number
+    notifWelcome?: boolean
+    notifReportReady?: boolean
+    notifProductUpdates?: boolean
+    notifWeeklyDigest?: boolean
     createdAt?: Date | string
     updatedAt?: Date | string
   }
@@ -16215,6 +18039,48 @@ export namespace Prisma {
     supplies?: FloatFieldUpdateOperationsInput | number
     administrative?: FloatFieldUpdateOperationsInput | number
     classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPreferencesUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPreferencesUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type UserPreferencesUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    defaultGrowthRate?: FloatFieldUpdateOperationsInput | number
+    defaultGrowthPeriod?: StringFieldUpdateOperationsInput | string
+    currency?: StringFieldUpdateOperationsInput | string
+    fiscalYearStart?: IntFieldUpdateOperationsInput | number
+    notifWelcome?: BoolFieldUpdateOperationsInput | boolean
+    notifReportReady?: BoolFieldUpdateOperationsInput | boolean
+    notifProductUpdates?: BoolFieldUpdateOperationsInput | boolean
+    notifWeeklyDigest?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

@@ -8,32 +8,23 @@ import { prisma } from "@/lib/prisma";
 import { getSession } from "@/lib/auth";
 import { hashPassword, comparePassword } from "@/lib/auth";
 
+/* ─── Update profile (name only — email is immutable) ─── */
 export async function updateProfileAction(formData: FormData) {
   const user = await getSession();
   if (!user) redirect("/login");
 
-  const name  = (formData.get("name")  as string)?.trim();
-  const email = (formData.get("email") as string)?.trim().toLowerCase();
-
-  if (!email) return { error: "Email is required." };
-
-  // Check if new email is taken by another user
-  if (email !== user.email) {
-    const existing = await prisma.user.findUnique({ where: { email } });
-    if (existing && existing.id !== user.id) {
-      return { error: "That email address is already in use." };
-    }
-  }
+  const name = (formData.get("name") as string)?.trim();
 
   await prisma.user.update({
     where: { id: user.id },
-    data: { name: name || null, email },
+    data:  { name: name || null },
   });
 
   revalidatePath("/settings");
   return { success: "Profile updated successfully." };
 }
 
+/* ─── Update password ────────────────────────────────── */
 export async function updatePasswordAction(formData: FormData) {
   const user = await getSession();
   if (!user) redirect("/login");
@@ -42,15 +33,12 @@ export async function updatePasswordAction(formData: FormData) {
   const newPassword     = formData.get("newPassword")     as string;
   const confirmPassword = formData.get("confirmPassword") as string;
 
-  if (!currentPassword || !newPassword || !confirmPassword) {
+  if (!currentPassword || !newPassword || !confirmPassword)
     return { error: "All password fields are required." };
-  }
-  if (newPassword.length < 8) {
+  if (newPassword.length < 8)
     return { error: "New password must be at least 8 characters." };
-  }
-  if (newPassword !== confirmPassword) {
+  if (newPassword !== confirmPassword)
     return { error: "New passwords do not match." };
-  }
 
   const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
   if (!dbUser) return { error: "User not found." };
@@ -59,28 +47,49 @@ export async function updatePasswordAction(formData: FormData) {
   if (!valid) return { error: "Current password is incorrect." };
 
   const hashed = await hashPassword(newPassword);
-  await prisma.user.update({
-    where: { id: user.id },
-    data: { password: hashed },
-  });
+  await prisma.user.update({ where: { id: user.id }, data: { password: hashed } });
 
   return { success: "Password changed successfully." };
 }
 
+/* ─── Update notification + simulation preferences ─────── */
+export interface PreferencesPayload {
+  defaultGrowthRate:   number;
+  defaultGrowthPeriod: string;
+  currency:            string;
+  fiscalYearStart:     number;
+  notifWelcome:        boolean;
+  notifReportReady:    boolean;
+  notifProductUpdates: boolean;
+  notifWeeklyDigest:   boolean;
+}
+
+export async function updatePreferencesAction(data: PreferencesPayload) {
+  const user = await getSession();
+  if (!user) redirect("/login");
+
+  await prisma.userPreferences.upsert({
+    where:  { userId: user.id },
+    update: data,
+    create: { userId: user.id, ...data },
+  });
+
+  revalidatePath("/settings");
+  return { success: "Preferences saved." };
+}
+
+/* ─── Delete account ──────────────────────────────────── */
 export async function deleteAccountAction(formData: FormData) {
   const user = await getSession();
   if (!user) redirect("/login");
 
   const confirmation = formData.get("confirmation") as string;
-  if (confirmation !== "DELETE") {
+  if (confirmation !== "DELETE")
     return { error: 'Type "DELETE" to confirm account deletion.' };
-  }
 
-  // Cascade deletes handle simulations, insights etc. via Prisma relations
   await prisma.user.delete({ where: { id: user.id } });
 
   const cookieStore = await cookies();
   cookieStore.delete("token");
-
   redirect("/login");
 }
