@@ -8,13 +8,14 @@ datasource db {
 }
 
 model User {
-  id          String       @id @default(cuid())
-  email       String       @unique
-  password    String
-  name        String?
-  createdAt   DateTime     @default(now())
-  updatedAt   DateTime     @updatedAt
-  simulations Simulation[]
+  id                  String               @id @default(cuid())
+  email               String               @unique
+  password            String
+  name                String?
+  createdAt           DateTime             @default(now())
+  updatedAt           DateTime             @updatedAt
+  simulations         Simulation[]
+  passwordResetTokens PasswordResetToken[]
 }
 
 model Simulation {
@@ -89,4 +90,15 @@ model Insight {
   recommendations     Json
   actionPlan          Json
   createdAt           DateTime   @default(now())
+}
+
+model PasswordResetToken {
+  id        String   @id @default(cuid())
+  token     String   @unique
+  userId    String
+  expiresAt DateTime
+  used      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

@@ -187,6 +187,15 @@ exports.Prisma.InsightScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.PasswordResetTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  used: 'used',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -223,7 +232,8 @@ exports.Prisma.ModelName = {
   ExpenseItem: 'ExpenseItem',
   Classroom: 'Classroom',
   BusinessGoal: 'BusinessGoal',
-  Insight: 'Insight'
+  Insight: 'Insight',
+  PasswordResetToken: 'PasswordResetToken'
 };
 
 /**

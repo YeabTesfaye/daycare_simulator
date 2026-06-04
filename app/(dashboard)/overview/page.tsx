@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { SimulationCard } from "@/components/dashboard/simulation-card";
 import { Plus, FlaskConical } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+
 export default async function OverviewPage() {
   const user = await getSession();
   const simulations = await prisma.simulation.findMany({
