@@ -205,8 +205,7 @@ export function LoginForm({ mode = "login" }: LoginFormProps) {
             priority
           />
         </div>
-
-   
+  
       </div>
     </div>
   );
