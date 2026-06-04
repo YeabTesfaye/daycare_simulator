@@ -97,6 +97,12 @@ interface BarShape {
   profit: number;
 }
 
+interface TooltipPayloadItem {
+  name: string;
+  value: number;
+  color: string;
+}
+
 /* ═══════════════════════════════════════════════════════════
    Constants
 ═══════════════════════════════════════════════════════════ */
@@ -231,22 +237,24 @@ function ProfitBarShape(props: BarShape) {
    Tooltip components
 ═══════════════════════════════════════════════════════════ */
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function TrendTooltip({ active, payload, label }: any) {
+function TrendTooltip({ active, payload, label }: {
+  active?: boolean;
+  payload?: TooltipPayloadItem[];
+  label?: string;
+}) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-md text-xs min-w-[160px]">
-      <p className="font-semibold text-gray-700 mb-2">{label}</p>
-      {payload.map((p) => (
-        <div key={p.name} className="flex justify-between gap-4">
-          <span style={{ color: p.color }}>— {p.name}</span>
-          <span className="font-medium text-gray-800">{fmtFull(p.value ?? 0)}</span>
-        </div>
-      ))}
-    </div>
+      <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-md text-xs min-w-40">
+        <p className="font-semibold text-gray-700 mb-2">{label}</p>
+        {payload.map((p) => (
+          <div key={p.name} className="flex justify-between gap-4">
+            <span style={{ color: p.color }}>— {p.name}</span>
+            <span className="font-medium text-gray-800">{fmtFull(p.value ?? 0)}</span>
+          </div>
+        ))}
+      </div>
   );
 }
-
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 function ProfitTooltip({ active, payload, label }: any) {
   if (!active || !payload?.length) return null;
