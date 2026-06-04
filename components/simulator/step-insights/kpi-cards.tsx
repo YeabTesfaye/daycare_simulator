@@ -1,5 +1,4 @@
 "use client";
-
 import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
 
 interface Props {
@@ -12,13 +11,15 @@ interface Props {
 }
 
 function GaugeChart({ value }: { value: number }) {
-  const clamped = Math.min(value, 200);
-  const pct = clamped / 200;
+  // Fix: clamp to 100 for visual, use pct directly (not /200)
+  const clamped = Math.min(value, 100);
+  const pct = clamped / 100;
   const data = [
     { value: pct },
     { value: 1 - pct },
   ];
-  const color = value > 100 ? "#22c55e" : value > 75 ? "#3b82f6" : "#f59e0b";
+  const color =
+    value > 100 ? "#f59e0b" : value > 75 ? "#3b82f6" : "#f59e0b";
 
   return (
     <div className="relative w-32 h-16 mx-auto">
@@ -50,13 +51,7 @@ function GaugeChart({ value }: { value: number }) {
   );
 }
 
-function DonutChart({
-  pct,
-  name,
-}: {
-  pct: number;
-  name: string;
-}) {
+function DonutChart({ pct, name }: { pct: number; name: string }) {
   const data = [{ value: pct }, { value: 100 - pct }];
   return (
     <div className="relative w-28 h-28 mx-auto">
@@ -97,22 +92,20 @@ export function KpiCards({
 }: Props) {
   const isProfit = netMonthlyIncome >= 0;
 
+  // Fix: format with currency style (already includes $), no manual $ prefix
+  const formattedIncome = Math.abs(netMonthlyIncome).toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD",
+    minimumFractionDigits: 2,
+  });
+
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
       {/* Net Monthly Income */}
       <div className="border border-gray-200 rounded-xl p-5">
         <p className="text-xs text-gray-500 mb-2">Net Monthly Income</p>
-        <p
-          className={`text-2xl font-bold ${
-            isProfit ? "text-green-600" : "text-red-500"
-          }`}
-        >
-          {isProfit ? "" : "$ "}
-          {!isProfit && "-"}
-          {isProfit ? "+" : ""}$
-          {Math.abs(netMonthlyIncome).toLocaleString("en-US", {
-            minimumFractionDigits: 2,
-          })}
+        <p className={`text-2xl font-bold ${isProfit ? "text-green-600" : "text-red-500"}`}>
+          {isProfit ? "+" : "-"}{formattedIncome}
         </p>
         <p className="text-xs text-gray-400 mt-2">
           {isProfit
@@ -129,8 +122,8 @@ export function KpiCards({
           <span className="text-lg font-normal text-gray-500">students</span>
         </p>
         <p className="text-xs text-gray-400 mt-2">
-          To cover fixed costs, the center needs at least {breakEvenEnrollment}{" "}
-          students enrolled at the current tuition rate.
+          To cover fixed costs, the center needs at least {breakEvenEnrollment} students
+          enrolled at the current tuition rate.
         </p>
       </div>
 
