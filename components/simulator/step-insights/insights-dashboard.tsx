@@ -10,6 +10,7 @@ import { ExpenseBreakdown } from "./expense-breakdown";
 import { Button } from "@/components/ui/button";
 import { Download, Mail, ArrowRight, Loader2 } from "lucide-react";
 import type { InsightData } from "@/types";
+import { sendReportEmail } from "@/actions/send-report-email";
 
 interface Props {
   simulation: {
@@ -172,10 +173,30 @@ export function InsightsDashboard({ simulation, insight }: Props) {
   /* ── Send report to email (calls a simple server action) ── */
   function handleSendEmail() {
     startTransition(async () => {
-      // Simulate an email send (wire to a real email action/service as needed)
-      await new Promise((r) => setTimeout(r, 1200));
+      const totalRevenue  = simulation.revenueSources.reduce((s, r) => s + r.amount, 0);
+    const totalExpenses = simulation.expenseItems.reduce((s, e) => s + e.amount, 0);
+
+    const result = await sendReportEmail({
+      businessName:        simulation.businessName,
+      netMonthlyIncome:    insight.netMonthlyIncome,
+      totalRevenue,
+      totalExpenses,
+      breakEvenEnrollment: insight.breakEvenEnrollment,
+      capacityUtilization: insight.capacityUtilization,
+      largestExpenseName:  insight.largestExpenseName,
+      largestExpensePct:   insight.largestExpensePct,
+      financialOverview:   executiveSummary.financialOverview,
+      profitabilityStatus: executiveSummary.profitabilityStatus,
+      enrollmentStatus:    executiveSummary.enrollmentStatus,
+      recommendations,
+      actionPlan,
+      expenseItems:        simulation.expenseItems,
+    });
+
+    if (result.success) {
       setEmailSent(true);
       setTimeout(() => setEmailSent(false), 4000);
+    }
     });
   }
 

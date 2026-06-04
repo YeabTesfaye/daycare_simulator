@@ -53,6 +53,11 @@ export type Insight = $Result.DefaultSelection<Prisma.$InsightPayload>
  * 
  */
 export type PasswordResetToken = $Result.DefaultSelection<Prisma.$PasswordResetTokenPayload>
+/**
+ * Model BudgetScenario
+ * 
+ */
+export type BudgetScenario = $Result.DefaultSelection<Prisma.$BudgetScenarioPayload>
 
 /**
  * Enums
@@ -65,11 +70,24 @@ export namespace $Enums {
 
 export type SimStatus = (typeof SimStatus)[keyof typeof SimStatus]
 
+
+export const GrowthPeriod: {
+  Monthly: 'Monthly',
+  Quarterly: 'Quarterly',
+  Annually: 'Annually'
+};
+
+export type GrowthPeriod = (typeof GrowthPeriod)[keyof typeof GrowthPeriod]
+
 }
 
 export type SimStatus = $Enums.SimStatus
 
 export const SimStatus: typeof $Enums.SimStatus
+
+export type GrowthPeriod = $Enums.GrowthPeriod
+
+export const GrowthPeriod: typeof $Enums.GrowthPeriod
 
 /**
  * ##  Prisma Client ʲˢ
@@ -271,6 +289,16 @@ export class PrismaClient<
     * ```
     */
   get passwordResetToken(): Prisma.PasswordResetTokenDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.budgetScenario`: Exposes CRUD operations for the **BudgetScenario** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more BudgetScenarios
+    * const budgetScenarios = await prisma.budgetScenario.findMany()
+    * ```
+    */
+  get budgetScenario(): Prisma.BudgetScenarioDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -712,7 +740,8 @@ export namespace Prisma {
     Classroom: 'Classroom',
     BusinessGoal: 'BusinessGoal',
     Insight: 'Insight',
-    PasswordResetToken: 'PasswordResetToken'
+    PasswordResetToken: 'PasswordResetToken',
+    BudgetScenario: 'BudgetScenario'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -728,7 +757,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "simulation" | "revenueSource" | "expenseItem" | "classroom" | "businessGoal" | "insight" | "passwordResetToken"
+      modelProps: "user" | "simulation" | "revenueSource" | "expenseItem" | "classroom" | "businessGoal" | "insight" | "passwordResetToken" | "budgetScenario"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1324,6 +1353,80 @@ export namespace Prisma {
           }
         }
       }
+      BudgetScenario: {
+        payload: Prisma.$BudgetScenarioPayload<ExtArgs>
+        fields: Prisma.BudgetScenarioFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.BudgetScenarioFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.BudgetScenarioFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>
+          }
+          findFirst: {
+            args: Prisma.BudgetScenarioFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.BudgetScenarioFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>
+          }
+          findMany: {
+            args: Prisma.BudgetScenarioFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>[]
+          }
+          create: {
+            args: Prisma.BudgetScenarioCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>
+          }
+          createMany: {
+            args: Prisma.BudgetScenarioCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.BudgetScenarioCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>[]
+          }
+          delete: {
+            args: Prisma.BudgetScenarioDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>
+          }
+          update: {
+            args: Prisma.BudgetScenarioUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>
+          }
+          deleteMany: {
+            args: Prisma.BudgetScenarioDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.BudgetScenarioUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.BudgetScenarioUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>[]
+          }
+          upsert: {
+            args: Prisma.BudgetScenarioUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$BudgetScenarioPayload>
+          }
+          aggregate: {
+            args: Prisma.BudgetScenarioAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateBudgetScenario>
+          }
+          groupBy: {
+            args: Prisma.BudgetScenarioGroupByArgs<ExtArgs>
+            result: $Utils.Optional<BudgetScenarioGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.BudgetScenarioCountArgs<ExtArgs>
+            result: $Utils.Optional<BudgetScenarioCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1440,6 +1543,7 @@ export namespace Prisma {
     businessGoal?: BusinessGoalOmit
     insight?: InsightOmit
     passwordResetToken?: PasswordResetTokenOmit
+    budgetScenario?: BudgetScenarioOmit
   }
 
   /* Types for Logging */
@@ -1522,11 +1626,13 @@ export namespace Prisma {
   export type UserCountOutputType = {
     simulations: number
     passwordResetTokens: number
+    budgetScenarios: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     simulations?: boolean | UserCountOutputTypeCountSimulationsArgs
     passwordResetTokens?: boolean | UserCountOutputTypeCountPasswordResetTokensArgs
+    budgetScenarios?: boolean | UserCountOutputTypeCountBudgetScenariosArgs
   }
 
   // Custom InputTypes
@@ -1552,6 +1658,13 @@ export namespace Prisma {
    */
   export type UserCountOutputTypeCountPasswordResetTokensArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: PasswordResetTokenWhereInput
+  }
+
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountBudgetScenariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BudgetScenarioWhereInput
   }
 
 
@@ -1791,6 +1904,7 @@ export namespace Prisma {
     updatedAt?: boolean
     simulations?: boolean | User$simulationsArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    budgetScenarios?: boolean | User$budgetScenariosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1825,6 +1939,7 @@ export namespace Prisma {
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     simulations?: boolean | User$simulationsArgs<ExtArgs>
     passwordResetTokens?: boolean | User$passwordResetTokensArgs<ExtArgs>
+    budgetScenarios?: boolean | User$budgetScenariosArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1835,6 +1950,7 @@ export namespace Prisma {
     objects: {
       simulations: Prisma.$SimulationPayload<ExtArgs>[]
       passwordResetTokens: Prisma.$PasswordResetTokenPayload<ExtArgs>[]
+      budgetScenarios: Prisma.$BudgetScenarioPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2239,6 +2355,7 @@ export namespace Prisma {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     simulations<T extends User$simulationsArgs<ExtArgs> = {}>(args?: Subset<T, User$simulationsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SimulationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     passwordResetTokens<T extends User$passwordResetTokensArgs<ExtArgs> = {}>(args?: Subset<T, User$passwordResetTokensArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PasswordResetTokenPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    budgetScenarios<T extends User$budgetScenariosArgs<ExtArgs> = {}>(args?: Subset<T, User$budgetScenariosArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2712,6 +2829,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: PasswordResetTokenScalarFieldEnum | PasswordResetTokenScalarFieldEnum[]
+  }
+
+  /**
+   * User.budgetScenarios
+   */
+  export type User$budgetScenariosArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    where?: BudgetScenarioWhereInput
+    orderBy?: BudgetScenarioOrderByWithRelationInput | BudgetScenarioOrderByWithRelationInput[]
+    cursor?: BudgetScenarioWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: BudgetScenarioScalarFieldEnum | BudgetScenarioScalarFieldEnum[]
   }
 
   /**
@@ -10671,6 +10812,1248 @@ export namespace Prisma {
 
 
   /**
+   * Model BudgetScenario
+   */
+
+  export type AggregateBudgetScenario = {
+    _count: BudgetScenarioCountAggregateOutputType | null
+    _avg: BudgetScenarioAvgAggregateOutputType | null
+    _sum: BudgetScenarioSumAggregateOutputType | null
+    _min: BudgetScenarioMinAggregateOutputType | null
+    _max: BudgetScenarioMaxAggregateOutputType | null
+  }
+
+  export type BudgetScenarioAvgAggregateOutputType = {
+    studentCount: number | null
+    tuitionFee: number | null
+    growthRate: number | null
+    staffSalaries: number | null
+    facilityCosts: number | null
+    supplies: number | null
+    administrative: number | null
+    classroomCapacity: number | null
+  }
+
+  export type BudgetScenarioSumAggregateOutputType = {
+    studentCount: number | null
+    tuitionFee: number | null
+    growthRate: number | null
+    staffSalaries: number | null
+    facilityCosts: number | null
+    supplies: number | null
+    administrative: number | null
+    classroomCapacity: number | null
+  }
+
+  export type BudgetScenarioMinAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    studentCount: number | null
+    tuitionFee: number | null
+    growthRate: number | null
+    growthPeriod: $Enums.GrowthPeriod | null
+    staffSalaries: number | null
+    facilityCosts: number | null
+    supplies: number | null
+    administrative: number | null
+    classroomCapacity: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BudgetScenarioMaxAggregateOutputType = {
+    id: string | null
+    userId: string | null
+    name: string | null
+    studentCount: number | null
+    tuitionFee: number | null
+    growthRate: number | null
+    growthPeriod: $Enums.GrowthPeriod | null
+    staffSalaries: number | null
+    facilityCosts: number | null
+    supplies: number | null
+    administrative: number | null
+    classroomCapacity: number | null
+    createdAt: Date | null
+    updatedAt: Date | null
+  }
+
+  export type BudgetScenarioCountAggregateOutputType = {
+    id: number
+    userId: number
+    name: number
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: number
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt: number
+    updatedAt: number
+    _all: number
+  }
+
+
+  export type BudgetScenarioAvgAggregateInputType = {
+    studentCount?: true
+    tuitionFee?: true
+    growthRate?: true
+    staffSalaries?: true
+    facilityCosts?: true
+    supplies?: true
+    administrative?: true
+    classroomCapacity?: true
+  }
+
+  export type BudgetScenarioSumAggregateInputType = {
+    studentCount?: true
+    tuitionFee?: true
+    growthRate?: true
+    staffSalaries?: true
+    facilityCosts?: true
+    supplies?: true
+    administrative?: true
+    classroomCapacity?: true
+  }
+
+  export type BudgetScenarioMinAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    studentCount?: true
+    tuitionFee?: true
+    growthRate?: true
+    growthPeriod?: true
+    staffSalaries?: true
+    facilityCosts?: true
+    supplies?: true
+    administrative?: true
+    classroomCapacity?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BudgetScenarioMaxAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    studentCount?: true
+    tuitionFee?: true
+    growthRate?: true
+    growthPeriod?: true
+    staffSalaries?: true
+    facilityCosts?: true
+    supplies?: true
+    administrative?: true
+    classroomCapacity?: true
+    createdAt?: true
+    updatedAt?: true
+  }
+
+  export type BudgetScenarioCountAggregateInputType = {
+    id?: true
+    userId?: true
+    name?: true
+    studentCount?: true
+    tuitionFee?: true
+    growthRate?: true
+    growthPeriod?: true
+    staffSalaries?: true
+    facilityCosts?: true
+    supplies?: true
+    administrative?: true
+    classroomCapacity?: true
+    createdAt?: true
+    updatedAt?: true
+    _all?: true
+  }
+
+  export type BudgetScenarioAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BudgetScenario to aggregate.
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BudgetScenarios to fetch.
+     */
+    orderBy?: BudgetScenarioOrderByWithRelationInput | BudgetScenarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: BudgetScenarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BudgetScenarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BudgetScenarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned BudgetScenarios
+    **/
+    _count?: true | BudgetScenarioCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to average
+    **/
+    _avg?: BudgetScenarioAvgAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to sum
+    **/
+    _sum?: BudgetScenarioSumAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: BudgetScenarioMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: BudgetScenarioMaxAggregateInputType
+  }
+
+  export type GetBudgetScenarioAggregateType<T extends BudgetScenarioAggregateArgs> = {
+        [P in keyof T & keyof AggregateBudgetScenario]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateBudgetScenario[P]>
+      : GetScalarType<T[P], AggregateBudgetScenario[P]>
+  }
+
+
+
+
+  export type BudgetScenarioGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: BudgetScenarioWhereInput
+    orderBy?: BudgetScenarioOrderByWithAggregationInput | BudgetScenarioOrderByWithAggregationInput[]
+    by: BudgetScenarioScalarFieldEnum[] | BudgetScenarioScalarFieldEnum
+    having?: BudgetScenarioScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: BudgetScenarioCountAggregateInputType | true
+    _avg?: BudgetScenarioAvgAggregateInputType
+    _sum?: BudgetScenarioSumAggregateInputType
+    _min?: BudgetScenarioMinAggregateInputType
+    _max?: BudgetScenarioMaxAggregateInputType
+  }
+
+  export type BudgetScenarioGroupByOutputType = {
+    id: string
+    userId: string
+    name: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt: Date
+    updatedAt: Date
+    _count: BudgetScenarioCountAggregateOutputType | null
+    _avg: BudgetScenarioAvgAggregateOutputType | null
+    _sum: BudgetScenarioSumAggregateOutputType | null
+    _min: BudgetScenarioMinAggregateOutputType | null
+    _max: BudgetScenarioMaxAggregateOutputType | null
+  }
+
+  type GetBudgetScenarioGroupByPayload<T extends BudgetScenarioGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<BudgetScenarioGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof BudgetScenarioGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], BudgetScenarioGroupByOutputType[P]>
+            : GetScalarType<T[P], BudgetScenarioGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type BudgetScenarioSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    studentCount?: boolean
+    tuitionFee?: boolean
+    growthRate?: boolean
+    growthPeriod?: boolean
+    staffSalaries?: boolean
+    facilityCosts?: boolean
+    supplies?: boolean
+    administrative?: boolean
+    classroomCapacity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["budgetScenario"]>
+
+  export type BudgetScenarioSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    studentCount?: boolean
+    tuitionFee?: boolean
+    growthRate?: boolean
+    growthPeriod?: boolean
+    staffSalaries?: boolean
+    facilityCosts?: boolean
+    supplies?: boolean
+    administrative?: boolean
+    classroomCapacity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["budgetScenario"]>
+
+  export type BudgetScenarioSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    studentCount?: boolean
+    tuitionFee?: boolean
+    growthRate?: boolean
+    growthPeriod?: boolean
+    staffSalaries?: boolean
+    facilityCosts?: boolean
+    supplies?: boolean
+    administrative?: boolean
+    classroomCapacity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["budgetScenario"]>
+
+  export type BudgetScenarioSelectScalar = {
+    id?: boolean
+    userId?: boolean
+    name?: boolean
+    studentCount?: boolean
+    tuitionFee?: boolean
+    growthRate?: boolean
+    growthPeriod?: boolean
+    staffSalaries?: boolean
+    facilityCosts?: boolean
+    supplies?: boolean
+    administrative?: boolean
+    classroomCapacity?: boolean
+    createdAt?: boolean
+    updatedAt?: boolean
+  }
+
+  export type BudgetScenarioOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "studentCount" | "tuitionFee" | "growthRate" | "growthPeriod" | "staffSalaries" | "facilityCosts" | "supplies" | "administrative" | "classroomCapacity" | "createdAt" | "updatedAt", ExtArgs["result"]["budgetScenario"]>
+  export type BudgetScenarioInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BudgetScenarioIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+  export type BudgetScenarioIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+  }
+
+  export type $BudgetScenarioPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "BudgetScenario"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      userId: string
+      name: string
+      studentCount: number
+      tuitionFee: number
+      growthRate: number
+      growthPeriod: $Enums.GrowthPeriod
+      staffSalaries: number
+      facilityCosts: number
+      supplies: number
+      administrative: number
+      classroomCapacity: number
+      createdAt: Date
+      updatedAt: Date
+    }, ExtArgs["result"]["budgetScenario"]>
+    composites: {}
+  }
+
+  type BudgetScenarioGetPayload<S extends boolean | null | undefined | BudgetScenarioDefaultArgs> = $Result.GetResult<Prisma.$BudgetScenarioPayload, S>
+
+  type BudgetScenarioCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<BudgetScenarioFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: BudgetScenarioCountAggregateInputType | true
+    }
+
+  export interface BudgetScenarioDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['BudgetScenario'], meta: { name: 'BudgetScenario' } }
+    /**
+     * Find zero or one BudgetScenario that matches the filter.
+     * @param {BudgetScenarioFindUniqueArgs} args - Arguments to find a BudgetScenario
+     * @example
+     * // Get one BudgetScenario
+     * const budgetScenario = await prisma.budgetScenario.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends BudgetScenarioFindUniqueArgs>(args: SelectSubset<T, BudgetScenarioFindUniqueArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one BudgetScenario that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {BudgetScenarioFindUniqueOrThrowArgs} args - Arguments to find a BudgetScenario
+     * @example
+     * // Get one BudgetScenario
+     * const budgetScenario = await prisma.budgetScenario.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends BudgetScenarioFindUniqueOrThrowArgs>(args: SelectSubset<T, BudgetScenarioFindUniqueOrThrowArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BudgetScenario that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioFindFirstArgs} args - Arguments to find a BudgetScenario
+     * @example
+     * // Get one BudgetScenario
+     * const budgetScenario = await prisma.budgetScenario.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends BudgetScenarioFindFirstArgs>(args?: SelectSubset<T, BudgetScenarioFindFirstArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first BudgetScenario that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioFindFirstOrThrowArgs} args - Arguments to find a BudgetScenario
+     * @example
+     * // Get one BudgetScenario
+     * const budgetScenario = await prisma.budgetScenario.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends BudgetScenarioFindFirstOrThrowArgs>(args?: SelectSubset<T, BudgetScenarioFindFirstOrThrowArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more BudgetScenarios that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all BudgetScenarios
+     * const budgetScenarios = await prisma.budgetScenario.findMany()
+     * 
+     * // Get first 10 BudgetScenarios
+     * const budgetScenarios = await prisma.budgetScenario.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const budgetScenarioWithIdOnly = await prisma.budgetScenario.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends BudgetScenarioFindManyArgs>(args?: SelectSubset<T, BudgetScenarioFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a BudgetScenario.
+     * @param {BudgetScenarioCreateArgs} args - Arguments to create a BudgetScenario.
+     * @example
+     * // Create one BudgetScenario
+     * const BudgetScenario = await prisma.budgetScenario.create({
+     *   data: {
+     *     // ... data to create a BudgetScenario
+     *   }
+     * })
+     * 
+     */
+    create<T extends BudgetScenarioCreateArgs>(args: SelectSubset<T, BudgetScenarioCreateArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many BudgetScenarios.
+     * @param {BudgetScenarioCreateManyArgs} args - Arguments to create many BudgetScenarios.
+     * @example
+     * // Create many BudgetScenarios
+     * const budgetScenario = await prisma.budgetScenario.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends BudgetScenarioCreateManyArgs>(args?: SelectSubset<T, BudgetScenarioCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many BudgetScenarios and returns the data saved in the database.
+     * @param {BudgetScenarioCreateManyAndReturnArgs} args - Arguments to create many BudgetScenarios.
+     * @example
+     * // Create many BudgetScenarios
+     * const budgetScenario = await prisma.budgetScenario.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many BudgetScenarios and only return the `id`
+     * const budgetScenarioWithIdOnly = await prisma.budgetScenario.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends BudgetScenarioCreateManyAndReturnArgs>(args?: SelectSubset<T, BudgetScenarioCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a BudgetScenario.
+     * @param {BudgetScenarioDeleteArgs} args - Arguments to delete one BudgetScenario.
+     * @example
+     * // Delete one BudgetScenario
+     * const BudgetScenario = await prisma.budgetScenario.delete({
+     *   where: {
+     *     // ... filter to delete one BudgetScenario
+     *   }
+     * })
+     * 
+     */
+    delete<T extends BudgetScenarioDeleteArgs>(args: SelectSubset<T, BudgetScenarioDeleteArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one BudgetScenario.
+     * @param {BudgetScenarioUpdateArgs} args - Arguments to update one BudgetScenario.
+     * @example
+     * // Update one BudgetScenario
+     * const budgetScenario = await prisma.budgetScenario.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends BudgetScenarioUpdateArgs>(args: SelectSubset<T, BudgetScenarioUpdateArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more BudgetScenarios.
+     * @param {BudgetScenarioDeleteManyArgs} args - Arguments to filter BudgetScenarios to delete.
+     * @example
+     * // Delete a few BudgetScenarios
+     * const { count } = await prisma.budgetScenario.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends BudgetScenarioDeleteManyArgs>(args?: SelectSubset<T, BudgetScenarioDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BudgetScenarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many BudgetScenarios
+     * const budgetScenario = await prisma.budgetScenario.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends BudgetScenarioUpdateManyArgs>(args: SelectSubset<T, BudgetScenarioUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more BudgetScenarios and returns the data updated in the database.
+     * @param {BudgetScenarioUpdateManyAndReturnArgs} args - Arguments to update many BudgetScenarios.
+     * @example
+     * // Update many BudgetScenarios
+     * const budgetScenario = await prisma.budgetScenario.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more BudgetScenarios and only return the `id`
+     * const budgetScenarioWithIdOnly = await prisma.budgetScenario.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends BudgetScenarioUpdateManyAndReturnArgs>(args: SelectSubset<T, BudgetScenarioUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one BudgetScenario.
+     * @param {BudgetScenarioUpsertArgs} args - Arguments to update or create a BudgetScenario.
+     * @example
+     * // Update or create a BudgetScenario
+     * const budgetScenario = await prisma.budgetScenario.upsert({
+     *   create: {
+     *     // ... data to create a BudgetScenario
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the BudgetScenario we want to update
+     *   }
+     * })
+     */
+    upsert<T extends BudgetScenarioUpsertArgs>(args: SelectSubset<T, BudgetScenarioUpsertArgs<ExtArgs>>): Prisma__BudgetScenarioClient<$Result.GetResult<Prisma.$BudgetScenarioPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of BudgetScenarios.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioCountArgs} args - Arguments to filter BudgetScenarios to count.
+     * @example
+     * // Count the number of BudgetScenarios
+     * const count = await prisma.budgetScenario.count({
+     *   where: {
+     *     // ... the filter for the BudgetScenarios we want to count
+     *   }
+     * })
+    **/
+    count<T extends BudgetScenarioCountArgs>(
+      args?: Subset<T, BudgetScenarioCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], BudgetScenarioCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a BudgetScenario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends BudgetScenarioAggregateArgs>(args: Subset<T, BudgetScenarioAggregateArgs>): Prisma.PrismaPromise<GetBudgetScenarioAggregateType<T>>
+
+    /**
+     * Group by BudgetScenario.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {BudgetScenarioGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends BudgetScenarioGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: BudgetScenarioGroupByArgs['orderBy'] }
+        : { orderBy?: BudgetScenarioGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, BudgetScenarioGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetBudgetScenarioGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the BudgetScenario model
+   */
+  readonly fields: BudgetScenarioFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for BudgetScenario.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__BudgetScenarioClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the BudgetScenario model
+   */
+  interface BudgetScenarioFieldRefs {
+    readonly id: FieldRef<"BudgetScenario", 'String'>
+    readonly userId: FieldRef<"BudgetScenario", 'String'>
+    readonly name: FieldRef<"BudgetScenario", 'String'>
+    readonly studentCount: FieldRef<"BudgetScenario", 'Int'>
+    readonly tuitionFee: FieldRef<"BudgetScenario", 'Float'>
+    readonly growthRate: FieldRef<"BudgetScenario", 'Float'>
+    readonly growthPeriod: FieldRef<"BudgetScenario", 'GrowthPeriod'>
+    readonly staffSalaries: FieldRef<"BudgetScenario", 'Float'>
+    readonly facilityCosts: FieldRef<"BudgetScenario", 'Float'>
+    readonly supplies: FieldRef<"BudgetScenario", 'Float'>
+    readonly administrative: FieldRef<"BudgetScenario", 'Float'>
+    readonly classroomCapacity: FieldRef<"BudgetScenario", 'Int'>
+    readonly createdAt: FieldRef<"BudgetScenario", 'DateTime'>
+    readonly updatedAt: FieldRef<"BudgetScenario", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * BudgetScenario findUnique
+   */
+  export type BudgetScenarioFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * Filter, which BudgetScenario to fetch.
+     */
+    where: BudgetScenarioWhereUniqueInput
+  }
+
+  /**
+   * BudgetScenario findUniqueOrThrow
+   */
+  export type BudgetScenarioFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * Filter, which BudgetScenario to fetch.
+     */
+    where: BudgetScenarioWhereUniqueInput
+  }
+
+  /**
+   * BudgetScenario findFirst
+   */
+  export type BudgetScenarioFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * Filter, which BudgetScenario to fetch.
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BudgetScenarios to fetch.
+     */
+    orderBy?: BudgetScenarioOrderByWithRelationInput | BudgetScenarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BudgetScenarios.
+     */
+    cursor?: BudgetScenarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BudgetScenarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BudgetScenarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BudgetScenarios.
+     */
+    distinct?: BudgetScenarioScalarFieldEnum | BudgetScenarioScalarFieldEnum[]
+  }
+
+  /**
+   * BudgetScenario findFirstOrThrow
+   */
+  export type BudgetScenarioFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * Filter, which BudgetScenario to fetch.
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BudgetScenarios to fetch.
+     */
+    orderBy?: BudgetScenarioOrderByWithRelationInput | BudgetScenarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for BudgetScenarios.
+     */
+    cursor?: BudgetScenarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BudgetScenarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BudgetScenarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BudgetScenarios.
+     */
+    distinct?: BudgetScenarioScalarFieldEnum | BudgetScenarioScalarFieldEnum[]
+  }
+
+  /**
+   * BudgetScenario findMany
+   */
+  export type BudgetScenarioFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * Filter, which BudgetScenarios to fetch.
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of BudgetScenarios to fetch.
+     */
+    orderBy?: BudgetScenarioOrderByWithRelationInput | BudgetScenarioOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing BudgetScenarios.
+     */
+    cursor?: BudgetScenarioWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` BudgetScenarios from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` BudgetScenarios.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of BudgetScenarios.
+     */
+    distinct?: BudgetScenarioScalarFieldEnum | BudgetScenarioScalarFieldEnum[]
+  }
+
+  /**
+   * BudgetScenario create
+   */
+  export type BudgetScenarioCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * The data needed to create a BudgetScenario.
+     */
+    data: XOR<BudgetScenarioCreateInput, BudgetScenarioUncheckedCreateInput>
+  }
+
+  /**
+   * BudgetScenario createMany
+   */
+  export type BudgetScenarioCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many BudgetScenarios.
+     */
+    data: BudgetScenarioCreateManyInput | BudgetScenarioCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * BudgetScenario createManyAndReturn
+   */
+  export type BudgetScenarioCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * The data used to create many BudgetScenarios.
+     */
+    data: BudgetScenarioCreateManyInput | BudgetScenarioCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BudgetScenario update
+   */
+  export type BudgetScenarioUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * The data needed to update a BudgetScenario.
+     */
+    data: XOR<BudgetScenarioUpdateInput, BudgetScenarioUncheckedUpdateInput>
+    /**
+     * Choose, which BudgetScenario to update.
+     */
+    where: BudgetScenarioWhereUniqueInput
+  }
+
+  /**
+   * BudgetScenario updateMany
+   */
+  export type BudgetScenarioUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update BudgetScenarios.
+     */
+    data: XOR<BudgetScenarioUpdateManyMutationInput, BudgetScenarioUncheckedUpdateManyInput>
+    /**
+     * Filter which BudgetScenarios to update
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * Limit how many BudgetScenarios to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * BudgetScenario updateManyAndReturn
+   */
+  export type BudgetScenarioUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * The data used to update BudgetScenarios.
+     */
+    data: XOR<BudgetScenarioUpdateManyMutationInput, BudgetScenarioUncheckedUpdateManyInput>
+    /**
+     * Filter which BudgetScenarios to update
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * Limit how many BudgetScenarios to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * BudgetScenario upsert
+   */
+  export type BudgetScenarioUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * The filter to search for the BudgetScenario to update in case it exists.
+     */
+    where: BudgetScenarioWhereUniqueInput
+    /**
+     * In case the BudgetScenario found by the `where` argument doesn't exist, create a new BudgetScenario with this data.
+     */
+    create: XOR<BudgetScenarioCreateInput, BudgetScenarioUncheckedCreateInput>
+    /**
+     * In case the BudgetScenario was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<BudgetScenarioUpdateInput, BudgetScenarioUncheckedUpdateInput>
+  }
+
+  /**
+   * BudgetScenario delete
+   */
+  export type BudgetScenarioDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+    /**
+     * Filter which BudgetScenario to delete.
+     */
+    where: BudgetScenarioWhereUniqueInput
+  }
+
+  /**
+   * BudgetScenario deleteMany
+   */
+  export type BudgetScenarioDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which BudgetScenarios to delete
+     */
+    where?: BudgetScenarioWhereInput
+    /**
+     * Limit how many BudgetScenarios to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * BudgetScenario without action
+   */
+  export type BudgetScenarioDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the BudgetScenario
+     */
+    select?: BudgetScenarioSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the BudgetScenario
+     */
+    omit?: BudgetScenarioOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: BudgetScenarioInclude<ExtArgs> | null
+  }
+
+
+  /**
    * Enums
    */
 
@@ -10782,6 +12165,26 @@ export namespace Prisma {
   };
 
   export type PasswordResetTokenScalarFieldEnum = (typeof PasswordResetTokenScalarFieldEnum)[keyof typeof PasswordResetTokenScalarFieldEnum]
+
+
+  export const BudgetScenarioScalarFieldEnum: {
+    id: 'id',
+    userId: 'userId',
+    name: 'name',
+    studentCount: 'studentCount',
+    tuitionFee: 'tuitionFee',
+    growthRate: 'growthRate',
+    growthPeriod: 'growthPeriod',
+    staffSalaries: 'staffSalaries',
+    facilityCosts: 'facilityCosts',
+    supplies: 'supplies',
+    administrative: 'administrative',
+    classroomCapacity: 'classroomCapacity',
+    createdAt: 'createdAt',
+    updatedAt: 'updatedAt'
+  };
+
+  export type BudgetScenarioScalarFieldEnum = (typeof BudgetScenarioScalarFieldEnum)[keyof typeof BudgetScenarioScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10918,6 +12321,20 @@ export namespace Prisma {
    */
   export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
     
+
+
+  /**
+   * Reference to a field of type 'GrowthPeriod'
+   */
+  export type EnumGrowthPeriodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GrowthPeriod'>
+    
+
+
+  /**
+   * Reference to a field of type 'GrowthPeriod[]'
+   */
+  export type ListEnumGrowthPeriodFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'GrowthPeriod[]'>
+    
   /**
    * Deep Input Types
    */
@@ -10935,6 +12352,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     simulations?: SimulationListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    budgetScenarios?: BudgetScenarioListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10946,6 +12364,7 @@ export namespace Prisma {
     updatedAt?: SortOrder
     simulations?: SimulationOrderByRelationAggregateInput
     passwordResetTokens?: PasswordResetTokenOrderByRelationAggregateInput
+    budgetScenarios?: BudgetScenarioOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10960,6 +12379,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFilter<"User"> | Date | string
     simulations?: SimulationListRelationFilter
     passwordResetTokens?: PasswordResetTokenListRelationFilter
+    budgetScenarios?: BudgetScenarioListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11453,6 +12873,108 @@ export namespace Prisma {
     createdAt?: DateTimeWithAggregatesFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type BudgetScenarioWhereInput = {
+    AND?: BudgetScenarioWhereInput | BudgetScenarioWhereInput[]
+    OR?: BudgetScenarioWhereInput[]
+    NOT?: BudgetScenarioWhereInput | BudgetScenarioWhereInput[]
+    id?: StringFilter<"BudgetScenario"> | string
+    userId?: StringFilter<"BudgetScenario"> | string
+    name?: StringFilter<"BudgetScenario"> | string
+    studentCount?: IntFilter<"BudgetScenario"> | number
+    tuitionFee?: FloatFilter<"BudgetScenario"> | number
+    growthRate?: FloatFilter<"BudgetScenario"> | number
+    growthPeriod?: EnumGrowthPeriodFilter<"BudgetScenario"> | $Enums.GrowthPeriod
+    staffSalaries?: FloatFilter<"BudgetScenario"> | number
+    facilityCosts?: FloatFilter<"BudgetScenario"> | number
+    supplies?: FloatFilter<"BudgetScenario"> | number
+    administrative?: FloatFilter<"BudgetScenario"> | number
+    classroomCapacity?: IntFilter<"BudgetScenario"> | number
+    createdAt?: DateTimeFilter<"BudgetScenario"> | Date | string
+    updatedAt?: DateTimeFilter<"BudgetScenario"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }
+
+  export type BudgetScenarioOrderByWithRelationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    growthPeriod?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    user?: UserOrderByWithRelationInput
+  }
+
+  export type BudgetScenarioWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    AND?: BudgetScenarioWhereInput | BudgetScenarioWhereInput[]
+    OR?: BudgetScenarioWhereInput[]
+    NOT?: BudgetScenarioWhereInput | BudgetScenarioWhereInput[]
+    userId?: StringFilter<"BudgetScenario"> | string
+    name?: StringFilter<"BudgetScenario"> | string
+    studentCount?: IntFilter<"BudgetScenario"> | number
+    tuitionFee?: FloatFilter<"BudgetScenario"> | number
+    growthRate?: FloatFilter<"BudgetScenario"> | number
+    growthPeriod?: EnumGrowthPeriodFilter<"BudgetScenario"> | $Enums.GrowthPeriod
+    staffSalaries?: FloatFilter<"BudgetScenario"> | number
+    facilityCosts?: FloatFilter<"BudgetScenario"> | number
+    supplies?: FloatFilter<"BudgetScenario"> | number
+    administrative?: FloatFilter<"BudgetScenario"> | number
+    classroomCapacity?: IntFilter<"BudgetScenario"> | number
+    createdAt?: DateTimeFilter<"BudgetScenario"> | Date | string
+    updatedAt?: DateTimeFilter<"BudgetScenario"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+  }, "id">
+
+  export type BudgetScenarioOrderByWithAggregationInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    growthPeriod?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+    _count?: BudgetScenarioCountOrderByAggregateInput
+    _avg?: BudgetScenarioAvgOrderByAggregateInput
+    _max?: BudgetScenarioMaxOrderByAggregateInput
+    _min?: BudgetScenarioMinOrderByAggregateInput
+    _sum?: BudgetScenarioSumOrderByAggregateInput
+  }
+
+  export type BudgetScenarioScalarWhereWithAggregatesInput = {
+    AND?: BudgetScenarioScalarWhereWithAggregatesInput | BudgetScenarioScalarWhereWithAggregatesInput[]
+    OR?: BudgetScenarioScalarWhereWithAggregatesInput[]
+    NOT?: BudgetScenarioScalarWhereWithAggregatesInput | BudgetScenarioScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"BudgetScenario"> | string
+    userId?: StringWithAggregatesFilter<"BudgetScenario"> | string
+    name?: StringWithAggregatesFilter<"BudgetScenario"> | string
+    studentCount?: IntWithAggregatesFilter<"BudgetScenario"> | number
+    tuitionFee?: FloatWithAggregatesFilter<"BudgetScenario"> | number
+    growthRate?: FloatWithAggregatesFilter<"BudgetScenario"> | number
+    growthPeriod?: EnumGrowthPeriodWithAggregatesFilter<"BudgetScenario"> | $Enums.GrowthPeriod
+    staffSalaries?: FloatWithAggregatesFilter<"BudgetScenario"> | number
+    facilityCosts?: FloatWithAggregatesFilter<"BudgetScenario"> | number
+    supplies?: FloatWithAggregatesFilter<"BudgetScenario"> | number
+    administrative?: FloatWithAggregatesFilter<"BudgetScenario"> | number
+    classroomCapacity?: IntWithAggregatesFilter<"BudgetScenario"> | number
+    createdAt?: DateTimeWithAggregatesFilter<"BudgetScenario"> | Date | string
+    updatedAt?: DateTimeWithAggregatesFilter<"BudgetScenario"> | Date | string
+  }
+
   export type UserCreateInput = {
     id?: string
     email: string
@@ -11462,6 +12984,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     simulations?: SimulationCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11473,6 +12996,7 @@ export namespace Prisma {
     updatedAt?: Date | string
     simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11484,6 +13008,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11495,6 +13020,7 @@ export namespace Prisma {
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -12006,6 +13532,124 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type BudgetScenarioCreateInput = {
+    id?: string
+    name?: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    user: UserCreateNestedOneWithoutBudgetScenariosInput
+  }
+
+  export type BudgetScenarioUncheckedCreateInput = {
+    id?: string
+    userId: string
+    name?: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BudgetScenarioUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutBudgetScenariosNestedInput
+  }
+
+  export type BudgetScenarioUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BudgetScenarioCreateManyInput = {
+    id?: string
+    userId: string
+    name?: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BudgetScenarioUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BudgetScenarioUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    userId?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type StringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -12059,6 +13703,12 @@ export namespace Prisma {
     none?: PasswordResetTokenWhereInput
   }
 
+  export type BudgetScenarioListRelationFilter = {
+    every?: BudgetScenarioWhereInput
+    some?: BudgetScenarioWhereInput
+    none?: BudgetScenarioWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -12069,6 +13719,10 @@ export namespace Prisma {
   }
 
   export type PasswordResetTokenOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type BudgetScenarioOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12592,6 +14246,96 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type EnumGrowthPeriodFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrowthPeriod | EnumGrowthPeriodFieldRefInput<$PrismaModel>
+    in?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrowthPeriodFilter<$PrismaModel> | $Enums.GrowthPeriod
+  }
+
+  export type BudgetScenarioCountOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    growthPeriod?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BudgetScenarioAvgOrderByAggregateInput = {
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+  }
+
+  export type BudgetScenarioMaxOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    growthPeriod?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BudgetScenarioMinOrderByAggregateInput = {
+    id?: SortOrder
+    userId?: SortOrder
+    name?: SortOrder
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    growthPeriod?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+    createdAt?: SortOrder
+    updatedAt?: SortOrder
+  }
+
+  export type BudgetScenarioSumOrderByAggregateInput = {
+    studentCount?: SortOrder
+    tuitionFee?: SortOrder
+    growthRate?: SortOrder
+    staffSalaries?: SortOrder
+    facilityCosts?: SortOrder
+    supplies?: SortOrder
+    administrative?: SortOrder
+    classroomCapacity?: SortOrder
+  }
+
+  export type EnumGrowthPeriodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrowthPeriod | EnumGrowthPeriodFieldRefInput<$PrismaModel>
+    in?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrowthPeriodWithAggregatesFilter<$PrismaModel> | $Enums.GrowthPeriod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGrowthPeriodFilter<$PrismaModel>
+    _max?: NestedEnumGrowthPeriodFilter<$PrismaModel>
+  }
+
   export type SimulationCreateNestedManyWithoutUserInput = {
     create?: XOR<SimulationCreateWithoutUserInput, SimulationUncheckedCreateWithoutUserInput> | SimulationCreateWithoutUserInput[] | SimulationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SimulationCreateOrConnectWithoutUserInput | SimulationCreateOrConnectWithoutUserInput[]
@@ -12606,6 +14350,13 @@ export namespace Prisma {
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
   }
 
+  export type BudgetScenarioCreateNestedManyWithoutUserInput = {
+    create?: XOR<BudgetScenarioCreateWithoutUserInput, BudgetScenarioUncheckedCreateWithoutUserInput> | BudgetScenarioCreateWithoutUserInput[] | BudgetScenarioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BudgetScenarioCreateOrConnectWithoutUserInput | BudgetScenarioCreateOrConnectWithoutUserInput[]
+    createMany?: BudgetScenarioCreateManyUserInputEnvelope
+    connect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+  }
+
   export type SimulationUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<SimulationCreateWithoutUserInput, SimulationUncheckedCreateWithoutUserInput> | SimulationCreateWithoutUserInput[] | SimulationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SimulationCreateOrConnectWithoutUserInput | SimulationCreateOrConnectWithoutUserInput[]
@@ -12618,6 +14369,13 @@ export namespace Prisma {
     connectOrCreate?: PasswordResetTokenCreateOrConnectWithoutUserInput | PasswordResetTokenCreateOrConnectWithoutUserInput[]
     createMany?: PasswordResetTokenCreateManyUserInputEnvelope
     connect?: PasswordResetTokenWhereUniqueInput | PasswordResetTokenWhereUniqueInput[]
+  }
+
+  export type BudgetScenarioUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<BudgetScenarioCreateWithoutUserInput, BudgetScenarioUncheckedCreateWithoutUserInput> | BudgetScenarioCreateWithoutUserInput[] | BudgetScenarioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BudgetScenarioCreateOrConnectWithoutUserInput | BudgetScenarioCreateOrConnectWithoutUserInput[]
+    createMany?: BudgetScenarioCreateManyUserInputEnvelope
+    connect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12660,6 +14418,20 @@ export namespace Prisma {
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
   }
 
+  export type BudgetScenarioUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BudgetScenarioCreateWithoutUserInput, BudgetScenarioUncheckedCreateWithoutUserInput> | BudgetScenarioCreateWithoutUserInput[] | BudgetScenarioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BudgetScenarioCreateOrConnectWithoutUserInput | BudgetScenarioCreateOrConnectWithoutUserInput[]
+    upsert?: BudgetScenarioUpsertWithWhereUniqueWithoutUserInput | BudgetScenarioUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BudgetScenarioCreateManyUserInputEnvelope
+    set?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    disconnect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    delete?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    connect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    update?: BudgetScenarioUpdateWithWhereUniqueWithoutUserInput | BudgetScenarioUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BudgetScenarioUpdateManyWithWhereWithoutUserInput | BudgetScenarioUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BudgetScenarioScalarWhereInput | BudgetScenarioScalarWhereInput[]
+  }
+
   export type SimulationUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<SimulationCreateWithoutUserInput, SimulationUncheckedCreateWithoutUserInput> | SimulationCreateWithoutUserInput[] | SimulationUncheckedCreateWithoutUserInput[]
     connectOrCreate?: SimulationCreateOrConnectWithoutUserInput | SimulationCreateOrConnectWithoutUserInput[]
@@ -12686,6 +14458,20 @@ export namespace Prisma {
     update?: PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput | PasswordResetTokenUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: PasswordResetTokenUpdateManyWithWhereWithoutUserInput | PasswordResetTokenUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: PasswordResetTokenScalarWhereInput | PasswordResetTokenScalarWhereInput[]
+  }
+
+  export type BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<BudgetScenarioCreateWithoutUserInput, BudgetScenarioUncheckedCreateWithoutUserInput> | BudgetScenarioCreateWithoutUserInput[] | BudgetScenarioUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: BudgetScenarioCreateOrConnectWithoutUserInput | BudgetScenarioCreateOrConnectWithoutUserInput[]
+    upsert?: BudgetScenarioUpsertWithWhereUniqueWithoutUserInput | BudgetScenarioUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: BudgetScenarioCreateManyUserInputEnvelope
+    set?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    disconnect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    delete?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    connect?: BudgetScenarioWhereUniqueInput | BudgetScenarioWhereUniqueInput[]
+    update?: BudgetScenarioUpdateWithWhereUniqueWithoutUserInput | BudgetScenarioUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: BudgetScenarioUpdateManyWithWhereWithoutUserInput | BudgetScenarioUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: BudgetScenarioScalarWhereInput | BudgetScenarioScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutSimulationsInput = {
@@ -13010,6 +14796,24 @@ export namespace Prisma {
     update?: XOR<XOR<UserUpdateToOneWithWhereWithoutPasswordResetTokensInput, UserUpdateWithoutPasswordResetTokensInput>, UserUncheckedUpdateWithoutPasswordResetTokensInput>
   }
 
+  export type UserCreateNestedOneWithoutBudgetScenariosInput = {
+    create?: XOR<UserCreateWithoutBudgetScenariosInput, UserUncheckedCreateWithoutBudgetScenariosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBudgetScenariosInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type EnumGrowthPeriodFieldUpdateOperationsInput = {
+    set?: $Enums.GrowthPeriod
+  }
+
+  export type UserUpdateOneRequiredWithoutBudgetScenariosNestedInput = {
+    create?: XOR<UserCreateWithoutBudgetScenariosInput, UserUncheckedCreateWithoutBudgetScenariosInput>
+    connectOrCreate?: UserCreateOrConnectWithoutBudgetScenariosInput
+    upsert?: UserUpsertWithoutBudgetScenariosInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutBudgetScenariosInput, UserUpdateWithoutBudgetScenariosInput>, UserUncheckedUpdateWithoutBudgetScenariosInput>
+  }
+
   export type NestedStringFilter<$PrismaModel = never> = {
     equals?: string | StringFieldRefInput<$PrismaModel>
     in?: string[] | ListStringFieldRefInput<$PrismaModel>
@@ -13215,6 +15019,23 @@ export namespace Prisma {
     _max?: NestedBoolFilter<$PrismaModel>
   }
 
+  export type NestedEnumGrowthPeriodFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrowthPeriod | EnumGrowthPeriodFieldRefInput<$PrismaModel>
+    in?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrowthPeriodFilter<$PrismaModel> | $Enums.GrowthPeriod
+  }
+
+  export type NestedEnumGrowthPeriodWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: $Enums.GrowthPeriod | EnumGrowthPeriodFieldRefInput<$PrismaModel>
+    in?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    notIn?: $Enums.GrowthPeriod[] | ListEnumGrowthPeriodFieldRefInput<$PrismaModel>
+    not?: NestedEnumGrowthPeriodWithAggregatesFilter<$PrismaModel> | $Enums.GrowthPeriod
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedEnumGrowthPeriodFilter<$PrismaModel>
+    _max?: NestedEnumGrowthPeriodFilter<$PrismaModel>
+  }
+
   export type SimulationCreateWithoutUserInput = {
     id?: string
     businessName: string
@@ -13281,6 +15102,48 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type BudgetScenarioCreateWithoutUserInput = {
+    id?: string
+    name?: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BudgetScenarioUncheckedCreateWithoutUserInput = {
+    id?: string
+    name?: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
+  }
+
+  export type BudgetScenarioCreateOrConnectWithoutUserInput = {
+    where: BudgetScenarioWhereUniqueInput
+    create: XOR<BudgetScenarioCreateWithoutUserInput, BudgetScenarioUncheckedCreateWithoutUserInput>
+  }
+
+  export type BudgetScenarioCreateManyUserInputEnvelope = {
+    data: BudgetScenarioCreateManyUserInput | BudgetScenarioCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type SimulationUpsertWithWhereUniqueWithoutUserInput = {
     where: SimulationWhereUniqueInput
     update: XOR<SimulationUpdateWithoutUserInput, SimulationUncheckedUpdateWithoutUserInput>
@@ -13339,6 +15202,42 @@ export namespace Prisma {
     createdAt?: DateTimeFilter<"PasswordResetToken"> | Date | string
   }
 
+  export type BudgetScenarioUpsertWithWhereUniqueWithoutUserInput = {
+    where: BudgetScenarioWhereUniqueInput
+    update: XOR<BudgetScenarioUpdateWithoutUserInput, BudgetScenarioUncheckedUpdateWithoutUserInput>
+    create: XOR<BudgetScenarioCreateWithoutUserInput, BudgetScenarioUncheckedCreateWithoutUserInput>
+  }
+
+  export type BudgetScenarioUpdateWithWhereUniqueWithoutUserInput = {
+    where: BudgetScenarioWhereUniqueInput
+    data: XOR<BudgetScenarioUpdateWithoutUserInput, BudgetScenarioUncheckedUpdateWithoutUserInput>
+  }
+
+  export type BudgetScenarioUpdateManyWithWhereWithoutUserInput = {
+    where: BudgetScenarioScalarWhereInput
+    data: XOR<BudgetScenarioUpdateManyMutationInput, BudgetScenarioUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type BudgetScenarioScalarWhereInput = {
+    AND?: BudgetScenarioScalarWhereInput | BudgetScenarioScalarWhereInput[]
+    OR?: BudgetScenarioScalarWhereInput[]
+    NOT?: BudgetScenarioScalarWhereInput | BudgetScenarioScalarWhereInput[]
+    id?: StringFilter<"BudgetScenario"> | string
+    userId?: StringFilter<"BudgetScenario"> | string
+    name?: StringFilter<"BudgetScenario"> | string
+    studentCount?: IntFilter<"BudgetScenario"> | number
+    tuitionFee?: FloatFilter<"BudgetScenario"> | number
+    growthRate?: FloatFilter<"BudgetScenario"> | number
+    growthPeriod?: EnumGrowthPeriodFilter<"BudgetScenario"> | $Enums.GrowthPeriod
+    staffSalaries?: FloatFilter<"BudgetScenario"> | number
+    facilityCosts?: FloatFilter<"BudgetScenario"> | number
+    supplies?: FloatFilter<"BudgetScenario"> | number
+    administrative?: FloatFilter<"BudgetScenario"> | number
+    classroomCapacity?: IntFilter<"BudgetScenario"> | number
+    createdAt?: DateTimeFilter<"BudgetScenario"> | Date | string
+    updatedAt?: DateTimeFilter<"BudgetScenario"> | Date | string
+  }
+
   export type UserCreateWithoutSimulationsInput = {
     id?: string
     email: string
@@ -13347,6 +15246,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSimulationsInput = {
@@ -13357,6 +15257,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSimulationsInput = {
@@ -13512,6 +15413,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSimulationsInput = {
@@ -13522,6 +15424,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type RevenueSourceUpsertWithWhereUniqueWithoutSimulationInput = {
@@ -14058,6 +15961,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     simulations?: SimulationCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutPasswordResetTokensInput = {
@@ -14068,6 +15972,7 @@ export namespace Prisma {
     createdAt?: Date | string
     updatedAt?: Date | string
     simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
+    budgetScenarios?: BudgetScenarioUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutPasswordResetTokensInput = {
@@ -14094,6 +15999,7 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutPasswordResetTokensInput = {
@@ -14104,6 +16010,67 @@ export namespace Prisma {
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
     simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
+    budgetScenarios?: BudgetScenarioUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserCreateWithoutBudgetScenariosInput = {
+    id?: string
+    email: string
+    password: string
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    simulations?: SimulationCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutBudgetScenariosInput = {
+    id?: string
+    email: string
+    password: string
+    name?: string | null
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    simulations?: SimulationUncheckedCreateNestedManyWithoutUserInput
+    passwordResetTokens?: PasswordResetTokenUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutBudgetScenariosInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutBudgetScenariosInput, UserUncheckedCreateWithoutBudgetScenariosInput>
+  }
+
+  export type UserUpsertWithoutBudgetScenariosInput = {
+    update: XOR<UserUpdateWithoutBudgetScenariosInput, UserUncheckedUpdateWithoutBudgetScenariosInput>
+    create: XOR<UserCreateWithoutBudgetScenariosInput, UserUncheckedCreateWithoutBudgetScenariosInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutBudgetScenariosInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutBudgetScenariosInput, UserUncheckedUpdateWithoutBudgetScenariosInput>
+  }
+
+  export type UserUpdateWithoutBudgetScenariosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    simulations?: SimulationUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutBudgetScenariosInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    email?: StringFieldUpdateOperationsInput | string
+    password?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    simulations?: SimulationUncheckedUpdateManyWithoutUserNestedInput
+    passwordResetTokens?: PasswordResetTokenUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type SimulationCreateManyUserInput = {
@@ -14122,6 +16089,22 @@ export namespace Prisma {
     expiresAt: Date | string
     used?: boolean
     createdAt?: Date | string
+  }
+
+  export type BudgetScenarioCreateManyUserInput = {
+    id?: string
+    name?: string
+    studentCount: number
+    tuitionFee: number
+    growthRate: number
+    growthPeriod: $Enums.GrowthPeriod
+    staffSalaries: number
+    facilityCosts: number
+    supplies: number
+    administrative: number
+    classroomCapacity: number
+    createdAt?: Date | string
+    updatedAt?: Date | string
   }
 
   export type SimulationUpdateWithoutUserInput = {
@@ -14186,6 +16169,54 @@ export namespace Prisma {
     expiresAt?: DateTimeFieldUpdateOperationsInput | Date | string
     used?: BoolFieldUpdateOperationsInput | boolean
     createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BudgetScenarioUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BudgetScenarioUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type BudgetScenarioUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: StringFieldUpdateOperationsInput | string
+    studentCount?: IntFieldUpdateOperationsInput | number
+    tuitionFee?: FloatFieldUpdateOperationsInput | number
+    growthRate?: FloatFieldUpdateOperationsInput | number
+    growthPeriod?: EnumGrowthPeriodFieldUpdateOperationsInput | $Enums.GrowthPeriod
+    staffSalaries?: FloatFieldUpdateOperationsInput | number
+    facilityCosts?: FloatFieldUpdateOperationsInput | number
+    supplies?: FloatFieldUpdateOperationsInput | number
+    administrative?: FloatFieldUpdateOperationsInput | number
+    classroomCapacity?: IntFieldUpdateOperationsInput | number
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type RevenueSourceCreateManySimulationInput = {

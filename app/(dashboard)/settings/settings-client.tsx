@@ -416,7 +416,7 @@ export function SettingsClient({ user }: Props) {
                     type="submit"
                     variant="destructive"
                     disabled={deleteConfirm !== "DELETE" || isPendingDelete}
-                    className="bg-red-600 hover:bg-red-700"
+                    className="bg-red-600 text-white hover:bg-red-700 px-4 py-2 font-medium"
                   >
                     {isPendingDelete && <Loader2 className="h-4 w-4 animate-spin mr-2" />}
                     Delete My Account

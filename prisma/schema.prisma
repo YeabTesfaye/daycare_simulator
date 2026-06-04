@@ -16,6 +16,8 @@ model User {
   updatedAt   DateTime     @updatedAt
   simulations Simulation[]
   passwordResetTokens PasswordResetToken[]
+
+  budgetScenarios BudgetScenario[]
 }
 
 model Simulation {
@@ -103,3 +105,27 @@ model PasswordResetToken {
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
+
+model BudgetScenario {
+  id                String   @id @default(cuid())
+  userId            String
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name              String   @default("My Scenario")
+  studentCount      Int
+  tuitionFee        Float
+  growthRate        Float
+  growthPeriod      GrowthPeriod 
+  staffSalaries     Float
+  facilityCosts     Float
+  supplies          Float
+  administrative    Float
+  classroomCapacity Int
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+}
+
+enum GrowthPeriod {
+  Monthly
+  Quarterly
+  Annually
+}

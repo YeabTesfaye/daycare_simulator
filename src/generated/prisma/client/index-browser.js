@@ -196,6 +196,23 @@ exports.Prisma.PasswordResetTokenScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.BudgetScenarioScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  name: 'name',
+  studentCount: 'studentCount',
+  tuitionFee: 'tuitionFee',
+  growthRate: 'growthRate',
+  growthPeriod: 'growthPeriod',
+  staffSalaries: 'staffSalaries',
+  facilityCosts: 'facilityCosts',
+  supplies: 'supplies',
+  administrative: 'administrative',
+  classroomCapacity: 'classroomCapacity',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -225,6 +242,12 @@ exports.SimStatus = exports.$Enums.SimStatus = {
   COMPLETED: 'COMPLETED'
 };
 
+exports.GrowthPeriod = exports.$Enums.GrowthPeriod = {
+  Monthly: 'Monthly',
+  Quarterly: 'Quarterly',
+  Annually: 'Annually'
+};
+
 exports.Prisma.ModelName = {
   User: 'User',
   Simulation: 'Simulation',
@@ -233,7 +256,8 @@ exports.Prisma.ModelName = {
   Classroom: 'Classroom',
   BusinessGoal: 'BusinessGoal',
   Insight: 'Insight',
-  PasswordResetToken: 'PasswordResetToken'
+  PasswordResetToken: 'PasswordResetToken',
+  BudgetScenario: 'BudgetScenario'
 };
 
 /**
