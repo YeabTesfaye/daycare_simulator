@@ -1,14 +1,12 @@
-
 import { NextRequest, NextResponse } from "next/server";
 import { getSession } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { openai } from "@/lib/openai";
+import { generateWithGemini } from "@/lib/gemini";
 import type { InsightData } from "@/types";
 
 /* ═══════════════════════════════════════════════════════════
    Types
 ═══════════════════════════════════════════════════════════ */
-
 interface SimWithRelations {
   id: string;
   businessName: string;
@@ -30,21 +28,18 @@ interface ComputedMetrics {
   totalCapacity: number;
   largestExpenseName: string;
   largestExpensePct: number;
-  expenseRatio: number;           // expenses / revenue  (0-1)
-  requiredStaff: number;          // derived from classrooms + staffRatio
+  expenseRatio: number;
+  requiredStaff: number;
 }
 
 /* ═══════════════════════════════════════════════════════════
    Pure financial helpers
 ═══════════════════════════════════════════════════════════ */
-
 function computeMetrics(sim: SimWithRelations): ComputedMetrics {
   const totalRevenue  = sim.revenueSources.reduce((s, r) => s + r.amount, 0);
   const totalExpenses = sim.expenseItems.reduce((s, e) => s + e.amount, 0);
   const netMonthlyIncome = totalRevenue - totalExpenses;
 
-  // Per-student revenue — use the "Tuition" line if present, else split
-  // total revenue equally across all enrolled students.
   const tuitionLine = sim.revenueSources.find((r) =>
     r.name.toLowerCase().includes("tuition"),
   );
@@ -55,18 +50,15 @@ function computeMetrics(sim: SimWithRelations): ComputedMetrics {
   const breakEvenEnrollment =
     perStudentRevenue > 0 ? Math.ceil(totalExpenses / perStudentRevenue) : 0;
 
-  // Capacity
   const totalCapacity = sim.classrooms.reduce((s, c) => s + c.capacity, 0);
   const capacityUtilization =
     totalCapacity > 0 ? (totalEnrolled / totalCapacity) * 100 : 0;
 
-  // Largest expense
   const sorted = [...sim.expenseItems].sort((a, b) => b.amount - a.amount);
   const largest = sorted[0] ?? { name: "N/A", amount: 0 };
   const largestExpensePct =
     totalExpenses > 0 ? (largest.amount / totalExpenses) * 100 : 0;
 
-  // Required staff derived from classrooms (enrolled / staffRatio, rounded up)
   const requiredStaff = sim.classrooms.reduce(
     (s, c) => s + Math.ceil(c.enrolled / c.staffRatio),
     0,
@@ -88,9 +80,8 @@ function computeMetrics(sim: SimWithRelations): ComputedMetrics {
 }
 
 /* ═══════════════════════════════════════════════════════════
-   OpenAI prompt builder
+   Gemini prompt builder
 ═══════════════════════════════════════════════════════════ */
-
 function buildPrompt(sim: SimWithRelations, m: ComputedMetrics): string {
   const fmt = (n: number) =>
     n.toLocaleString("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 0 });
@@ -156,7 +147,6 @@ REQUIRED JSON STRUCTURE
       "priority"   : "high | medium | low",
       "impact"     : "Quantified expected outcome, e.g. 'Could increase net income by $X/month'"
     }
-    // exactly 5 items
   ],
   "actionPlan": [
     {
@@ -165,7 +155,6 @@ REQUIRED JSON STRUCTURE
       "actions" : ["specific action 1", "specific action 2", "specific action 3"],
       "timeline": "e.g. Week 1–2"
     }
-    // exactly 3 phases
   ]
 }
 
@@ -181,7 +170,6 @@ Rules:
 /* ═══════════════════════════════════════════════════════════
    Route handler
 ═══════════════════════════════════════════════════════════ */
-
 export async function POST(request: NextRequest) {
   /* ── Auth ── */
   const user = await getSession();
@@ -237,7 +225,7 @@ export async function POST(request: NextRequest) {
   /* ── Compute metrics ── */
   const metrics = computeMetrics(sim as SimWithRelations);
 
-  /* ── Call OpenAI ── */
+  /* ── Call Gemini ── */
   let aiPayload: {
     executiveSummary: InsightData["executiveSummary"];
     recommendations: InsightData["recommendations"];
@@ -245,26 +233,12 @@ export async function POST(request: NextRequest) {
   };
 
   try {
-    const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
-      temperature: 0.3,
-      max_tokens: 2400,
-      response_format: { type: "json_object" },   // enforces JSON mode
-      messages: [
-        {
-          role: "system",
-          content:
-            "You are a financial operations consultant specialising in childcare centres. " +
-            "Always respond with valid JSON matching the schema the user provides.",
-        },
-        { role: "user", content: buildPrompt(sim as SimWithRelations, metrics) },
-      ],
-    });
-
-    const raw = completion.choices[0]?.message?.content ?? "{}";
-    aiPayload = JSON.parse(raw);
+    const raw = await generateWithGemini(buildPrompt(sim as SimWithRelations, metrics));
+    // Strip markdown fences if Gemini wraps output despite responseMimeType
+    const clean = raw.replace(/^```(?:json)?\s*/i, "").replace(/\s*```$/i, "").trim();
+    aiPayload = JSON.parse(clean);
   } catch (err) {
-    console.error("[generate-insights] OpenAI error:", err);
+    console.error("[generate-insights] Gemini error:", err);
     return NextResponse.json(
       { error: "AI generation failed. Please try again." },
       { status: 502 },

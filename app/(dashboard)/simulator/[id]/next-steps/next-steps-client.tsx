@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, TrendingUp, AlertCircle, Info } from "lucide-react";
+import { CheckCircle2, TrendingUp, Info } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { InsightData } from "@/types";
 

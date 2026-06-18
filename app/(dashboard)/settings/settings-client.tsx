@@ -15,7 +15,7 @@ import { Input }    from "@/components/ui/input";
 import { Label }    from "@/components/ui/label";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import {
-  User, Lock, Bell, Trash2, Loader2,
+  User, Lock, Bell, Loader2,
   AlertCircle, CheckCircle2, FlaskConical,
   TrendingUp, Settings2, ShieldAlert,
   ChevronRight,
